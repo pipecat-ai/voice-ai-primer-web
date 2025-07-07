@@ -2761,14 +2761,21 @@ llm.register_function("query_order_system", query_order_system)
 
           <p>One mistake we sometimes see people make is cost-optimizing the agent hosting itself, before calculating the cost of the speech and LLM APIs. <strong>In general, cloud runtime costs for the agent processes themselves are less than one percent of total per-minute cost.</strong> It is almost never worth spending engineering effort on optimizing per-vCPU agent concurrency.</p>
 
-          <p><a href="https://docs.google.com/spreadsheets/d/1-B3nv7fhwEoFmDs-phm280XK9phTep0qfyLKRNsEwVE/edit?gid=0#gid=0" target="_blank">Here is a spreadsheet</a> that you can copy and use as a starting point for calculating per-minute cost.</p>
+          <p><a href="https://www.livetok.io/cost-calculator">Here is an interactive cost calculator</a>, developed by <a href="https://twitter.com/anarchyco">Gustavo Garcia</a>. </p> 
+
+          <div class="chapter-image">
+            <img src="images/livetok-cost-calculator.png" alt="An interactive cost calculator" class="chunk-image-inline" width="80%">
+            <p class="image-caption">An interactive cost calculator</p>
+          </div>
+
+          <p>Or, if you prefer a spreadsheet, <a href="https://docs.google.com/spreadsheets/d/1-B3nv7fhwEoFmDs-phm280XK9phTep0qfyLKRNsEwVE/edit?gid=0#gid=0" target="_blank">here is a spreadsheet</a> that you can copy and use as a starting point for calculating per-minute cost.</p>
 
           <div class="chapter-image">
             <img src="images/Figure 3000 General Costs.png" alt="A spreadsheet to calculate per-minute costs for voice AI agents" class="chunk-image-inline" width="80%">
             <p class="image-caption">A spreadsheet to calculate per-minute costs for voice AI agents</p>
           </div>
 
-          <p>The numbers in the screenshot are for a self-hosted agent that uses Deepgram, GPT-4o, and Cartesia. For a ten-minute session, the per-minute cost is about two and a half cents. Transcription and the LLM inference are each about a quarter of the cost. Voice generation is about half of the cost. Hosting is less than one percent of the cost.</p>
+          <p>The numbers in the spreadsheet screenshot are for a self-hosted agent that uses Deepgram, GPT-4o, and Cartesia. For a ten-minute session, the per-minute cost is about two and a half cents. Transcription and the LLM inference are each about a quarter of the cost. Voice generation is about half of the cost. Hosting is less than one percent of the cost.</p>
 
           <p>Of course, this is not a realistic picture of what self-hosting actually costs. If you are building and maintaining all of your own hosting infrastructure, you'll need to set up, scale, and maintain a number of systems and capabilities in addition to the agents themselves.</p>
 
