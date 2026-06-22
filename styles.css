@@ -362,6 +362,15 @@ footer p {
   margin-right: auto;
 }
 
+/* Right-column (sidebar) figure captions read left-justified, flush to
+   the column edge, rather than centered like the main-column figures. */
+.chunk-notes .chapter-image .image-caption {
+  text-align: left;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 /* Binary paragraph numbers */
 .binary-paragraph-number {
   font-family: monospace;
