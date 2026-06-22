@@ -43,6 +43,28 @@ h3 {
   margin-bottom: 0.75rem;
 }
 
+/* Shareable section-anchor link, appended by script/header-anchors.js.
+   Hidden until the reader hovers the heading. */
+.header-anchor {
+  margin-left: 0.4em;
+  font-weight: 400;
+  text-decoration: none;
+  color: #999;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+h1:hover > .header-anchor,
+h2:hover > .header-anchor,
+h3:hover > .header-anchor,
+.header-anchor:focus {
+  opacity: 1;
+}
+
+.header-anchor:hover {
+  color: #555;
+}
+
 h1 {
   font-size: 2rem;
   font-weight: 600;
