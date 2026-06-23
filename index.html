@@ -49,7 +49,12 @@
       <ol>
         <li><a href="#conversational-voice-ai">Conversational Voice AI in 2026</a></li>
         <li><a href="#voice-ai-not-just-voice">Voice AI is not just "voice"</a></li>
-        <li><a href="#about-this-guide">About this guide</a></li>
+        <li>
+          <a href="#about-this-guide">About this guide</a>
+          <ul>
+            <li><a href="#benchmarks-notes">3.1. Keeping up with model releases</a></li>
+          </ul>
+        </li>
         <li><a href="#basic-loop">The basic conversational AI loop</a></li>
         <li>
           <a href="#core-tech">Core technologies and best practices</a>
@@ -64,7 +69,7 @@
               </ul>
             </li>
             <li>
-              <a href="#benchmarks">5.3. Benchmarks</a>
+              <a href="#benchmarks">5.3. LLM benchmarks</a>
               <ul>
                 <li><a href="#pareto-frontier-llm">5.3.1. The intelligence/latency Pareto frontier</a></li>
               </ul>
@@ -106,6 +111,7 @@
                 <li><a href="#push-to-talk">5.8.2. Push-to-talk</a></li>
                 <li><a href="#endpoint-markers">5.8.3. Endpoint markers</a></li>
                 <li><a href="#context-aware-turn-detection">5.8.4. Context-aware turn detection (semantic VAD and smart turn)</a></li>
+                <li><a href="#sota-turn-detection">5.8.5. State of the art turn detection: VAD, Smart Turn, and LLM single-token tagging</a></li>
               </ul>
             </li>
             <li>
@@ -275,8 +281,21 @@
             
             <p>We've tried to give general advice in this document, rather than recommend commercial products and services. Where we highlight specific vendors, we do so because they are used by a large percentage of voice AI developers.</p>
 
-            
-            <p>Let's get started …</p>
+            <h2 id="benchmarks-notes">3.1. Keeping up with model releases</h2>
+
+            <p>Keeping up with the fast-changing AI model landscape is a big challenge. There is a constant stream of model releases that are relevant to voice agents.</p>
+
+            <p>Benchmarks are an important way to track model progress and figure out whether to spend time fully evaluating a specific model. Unfortunately, most of the widely publicized model benchmarks aren't useful for voice AI. Voice agents are always multi-turn, so benchmarks that do not test long, multi-turn performance won't tell you how a model performs in real conversations. Latency is very important for voice agents, and most benchmarks don't report TTFT (time to first token) or similar metrics.</p>
+
+            <p>Here are the benchmarks we use to track model releases and first-party API performance:</p>
+
+            <ul class="arrow-list">
+              <li><a href="https://github.com/pipecat-ai/stt-benchmark">Speech-to-text model performance benchmark</a></li>
+              <li><a href="https://github.com/kwindla/aiewf-eval">AIEWF LLM voice agent benchmark</a> (30-turn conversation with tool calling)</li>
+              <li><a href="https://benchmarks.coval.ai/overview">Coval text-to-speech and speech-to-text benchmarks</a></li>
+              <li><a href="https://servicenow.github.io/eva/#results">ServiceNow EVA model evaluation framework</a></li>
+              <li><a href="https://humannessindex.vapi.ai/">VAPI voice model humanness index</a></li>
+            </ul>
 
         </div>
         
@@ -707,7 +726,7 @@
 
       <div class="chunk-row">
         <div class="chunk-content">
-          <h2 id="benchmarks">5.3. Benchmarks</h2>
+          <h2 id="benchmarks">5.3. LLM benchmarks</h2>
         </div>
       </div>
 
@@ -1370,20 +1389,26 @@ Your output will be directly converted to speech, so your response should be nat
           <h2 id="turn-detection">5.8. Turn detection</h2>
             
             <p><em>Turn detection </em> means determining when the user is finished talking and expects the LLM to respond.</p>
-            
-            <p>In the academic literature, various aspects of this problem are referred to as <em>phrase detection, speech segmentation, and endpointing</em>. (The fact that there is academic literature about this is a clue that it's a non-trivial problem.)</p>
-            
-            <p>We (humans) do turn detection every time we talk to anyone else. And we don't always get it right!<sup>[29]</sup></p>
-            
-            <p>So turn detection is a hard problem, and there aren't any perfect solutions. But let's talk about the various approaches that are in common use.</p>
+
+            <p>We (humans) do turn detection every time we talk to anyone else. <sup>[29]</sup></p>
         </div>
 
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
-              <p>[29] Especially on audio calls, when we don't have visual cues to help us.</p>
+              <p>[29] And we don't always get it right! Especially when we don't have visual cues to help us, or when there is a delay in the audio transport.</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="chunk-row">
+        <div class="chunk-content">
+            <p>The single most common complaint about voice agents built "from scratch" (not using a framework like Pipecat) is that agents interrupt too often. But this is largely a solved problem. Voice agents that use today's best approaches to turn detection respond quickly, with interruption accuracy very similar to real humans.</p>
+
+            <p>In the academic literature, various aspects of turn detection are referred to as <em>phrase detection, speech segmentation, and endpointing</em>. (The fact that there is academic literature about this is a clue that it's a non-trivial problem.)</p>
+
+            <p>You can skip straight to <a href="#sota-turn-detection">State of the art turn detection</a> if you just want to read a best practices overview. In the next few sections, we'll walk through the various building blocks for turn detection.</p>
         </div>
       </div>
       
@@ -1391,7 +1416,7 @@ Your output will be directly converted to speech, so your response should be nat
         <div class="chunk-content">
             <h3 id="voice-activity-detection-4-7">5.8.1 Voice activity detection</h3>
             
-            <p>Currently, the most common way to do turn detection for voice AI agents is to assume that a long pause means the user has finished speaking.</p>
+            <p>One common way to do turn detection for voice AI agents is to assume that a long pause means the user has finished speaking.</p>
             
             <p>Voice AI agent pipelines identify pauses using a small, specialized voice activity detection model. A VAD model has been trained to classify audio segments as speech or non-speech. (This is much more robust than trying to identify pauses based only on volume level.)</p>
             
@@ -1409,6 +1434,8 @@ Your output will be directly converted to speech, so your response should be nat
               <li>The confidence level for classifying each audio segment as speech.</li>
               <li>Minimum volume for speech segments.</li>
             </ul>
+
+            <p>Here are Pipecat's names and default values for the four VAD configuration parameters, if you are using VAD by itself for turn detection. (But these days you shouldn't be using VAD by itself. See <a href="#sota-turn-detection">State of the art turn detection</a> below.)</p>
         </div>
 
         <div class="chunk-notes">
@@ -1422,9 +1449,6 @@ Your output will be directly converted to speech, so your response should be nat
       <div class="chunk-row">
         <div class="chunk-content">
             <pre class="language-python"><code>
-  # Pipecat's names and default values
-  # for the four configurable VAD
-  # parameters
   VAD_STOP_SECS = 0.8
   VAD_START_SECS = 0.2
   VAD_CONFIDENCE = 0.7
@@ -1432,7 +1456,7 @@ Your output will be directly converted to speech, so your response should be nat
   
 </code></pre>
             
-            <p>Tuning these parameters can improve turn detection behavior a lot for specific use cases.</p>
+            <p>Tuning these parameters can improve turn detection behavior for specific use cases.</p>
         </div>
       </div>
       
@@ -1448,10 +1472,7 @@ Your output will be directly converted to speech, so your response should be nat
             
             <p>The most common alternative to pause-based turn detection is push-to-talk. Push-to-talk means requiring that the user push or hold a button when they start speaking, and push the button again or release it when they are finished speaking. (Think about how old-school walkie-talkies work.)</p>
             
-            <p>Turn detection is unambiguous with push-to-talk. But the user experience is not the same as just talking.</p>
-            
-            <p>Push-to-talk isn't possible for telephone voice AI agents.</p>
-            
+            <p>Turn detection is unambiguous with push-to-talk. Dictation programs and coding agent voice integrations often use push-to-talk. The downside is that the user experience of push-to-talk is quite different from a natural conversation. Also, push-to-talk isn't possible for telephone voice AI agents.</p>
         </div>
       </div>
       
@@ -1463,7 +1484,7 @@ Your output will be directly converted to speech, so your response should be nat
             
             <p>The easiest way to identify specific endpoint markers is to run a regular expression match against each transcription fragment. But you can also use a small language model to detect endpoint words or phrases.</p>
             
-            <p>Voice AI apps that use explicit endpoint markers are fairly uncommon. Users have to learn to talk to these apps. But this approach can work very well for specialized use cases.</p>
+            <p>Voice AI apps that use explicit endpoint markers are unusual. Users have to learn to talk to these apps. But this approach can work very well for specialized use cases.</p>
             
             <p>For example, we saw a nice demo last year of a writing assistant that someone had built for themselves as a side project. They used a variety of command phrases to indicate turn endpoints and to switch between modes.</p>
             
@@ -1483,16 +1504,27 @@ Your output will be directly converted to speech, so your response should be nat
               <li>Intonation and pronunciation patterns like drawing out the final word before a pause.</li>
             </ul>
             
-            <p>Deep learning models are very good at identifying patterns. LLMs have a lot of latent grammatical knowledge and can be prompted to do phrase endpointing. Smaller, specialized classification models can be trained on language, intonation, and pronunciation patterns.</p>
+            <p>Deep learning models are very good at identifying patterns. Small, specialized classification models can be trained on language, intonation, and pronunciation patterns.</p>
+
+            <p>There are now several good turn detection models available, and the leading STT model providers are all integrating turn detection into their STT APIs.</p>
+
+            <p><a href="https://github.com/pipecat-ai/smart-turn">Pipecat Smart Turn</a> is a completely open source, native audio, turn detection model that supports 23 languages.</p>
             
-            <p>As voice agents become more and more commercially important, we expect to see new models for context-aware voice AI turn detection.</p>
+            <p>The Smart Turn model runs in parallel with transcription, gated by VAD set to a very short silence interval. This design provides a number of useful characteristics:
+            </p>
+
+             <ul class="arrow-list">
+              <li>The model operates directly on the user's speech audio, so it takes into account both language-level patterns and audio-level patterns like intonation, speech pacing, and pronunciation.</li>
+              <li>Because Smart Turn doesn't operate on text, it doesn't have to wait for transcription to complete. This keeps latency as low as possible.</li>
+              <li>The model is small, optimized to deliver a classification (complete turn or incomplete turn) in ~30ms on a typical cloud vCPU.</li>
+            </ul>
             
-            <p>There are two main approaches:</p>
+            <p>All of this, taken together, means that we're making turn decisions in ~250ms from the time a user pauses while speaking.</p>
             
-            <ol class="list-decimal">
-              <li>Train a small turn detection model that can run in real time. Use this model in conjunction with or instead of a VAD model. A turn detection model can be trained to pattern match on text. A text-mode turn detection model runs inline in the processing pipeline after transcription and generally needs to be trained on the output of a specific transcription model to be effective. Or, a turn detection model can be trained to operate natively on audio, which allows the turn detection classification to take into account both language-level patterns and intonation, speech pacing, and pronunciation patterns. A native audio turn detection model doesn't require any transcription information, so it can run in parallel with transcription, which can improve performance. </li>
-              <li>Use a large LLM and a few-shot prompt to perform turn detection. Large LLMs are usually too slow to use in-line, blocking the pipeline. To work around this, you can split the pipeline and do turn detection and "greedy" conversation inference in parallel.</li>
-            </ol>
+            <p>Having rock solid 250ms turn classification helps us design, debug, and monitor our agent behavior. ML models are "black boxes" and are hard to debug, in general. But our <em>pipeline</em> is not a black box. We can see the operation of every component. </p>
+
+            <p>All of the training data, training code, and evaluation/benchmarking code for Pipecat Smart Turn is freely available on GitHub and HuggingFace. The model is licensed under the BSD Open Source license. Many teams have contributed data to improve the model. If you'd like to contribute and participate in the development of Smart Turn, please submit PRs or join the <a href="https://discord.gg/pipecat">Pipecat Discord</a>.</p>
+
         </div>
         <div class="chunk-notes">
           
@@ -1500,59 +1532,84 @@ Your output will be directly converted to speech, so your response should be nat
       </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
-            <pre class="language-python"><code> 
-    [
-      transport.input(),
-      vad,
-      audio_accumulator,
-      ParallelPipeline(
-      [
-        FunctionFilter(filter=block_user_stopped_speaking),
-      ],
-      [
-        ParallelPipeline(
-        [
-          classifier_llm,
-          completeness_check,
-        ],
-        [
-          tx_llm,
-          user_aggregator_buffer,
-        ],
-        )
-      ],
-      [
-        conversation_audio_context_assembler,
-        conversation_llm,
-        bot_output_gate,
-      ],
-      ),
-      tts,
-      transport.output(),
-      context_aggregator.assistant(),
-    ],
+          <h3 id="sota-turn-detection">5.8.5 State of the art turn detection: VAD, Smart Turn, and LLM single-token tagging</h3>
 
-</code></pre>
-            <p class="image-caption">Pipecat pipeline <a href="https://github.com/pipecat-ai/pipecat/blob/main/examples/foundational/22d-natural-conversation-gemini-audio.py" target="_blank">code for context-aware turn detection</a> using Gemini 2.5 Flash native audio input. Turn detection and greedy conversation inference run in parallel. Output is gated until the turn detection inference detects a phrase endpoint.</p>
+          <p>The best turn detection today combines three layers of processing:</p>
+          <ol>
+            <li>Voice activity detection, with a short (200ms) trigger.</li>
+            <li>A <a href="https://github.com/pipecat-ai/smart-turn">native audio turn detection model</a> that's small, fast, and runs on CPU. This model captures audio nuances like inflection and filler sounds that don't get transcribed.</li>
+            <li>A prompt mixin for the conversation LLM that makes a configurable, context-aware turn completion decision.</li>
+          </ol>
+          
+          <p>None of these are new. We've been using VAD for a long time. We trained the first version of the Pipecat Smart Turn native audio model in December 2024. And we've been experimenting with prompt-based large model turn detection (sometimes called "selective refusal") for more than a year.</p>  
 
-            <p> Some recent developments in turn detection:</p>
-            <ul class="arrow-list">
-              <li>In March, OpenAI shipped a new context-aware turn detection capability for their Realtime API. They call this feature <em>semantic VAD</em>, in contrast to the simpler <em>server VAD</em> (pause-based turn detection). Docs are <a href="https://platform.openai.com/docs/guides/realtime-vad#semantic-vad" target="_blank">here</a>.</li>
-              <li><a href="https://www.tavus.io" target="_blank">Tavus</a> developed a transformer-based native audio turn detection model that is now part of their realtime conversational video API. The Tavus team published a very nice <a href="https://www.tavus.io/post/sparrow-0-advancing-conversational-responsiveness-in-video-agents-with-transformer-based-turn-taking" target="_blank">technical overview</a> of the problem space and how the model works.</li>
-              <li>The <a href="https://github.com/pipecat-ai/smart-turn" target="_blank">Smart Turn</a> open source model is a state of the art native audio turn detection model built and maintained by the Pipecat community. All training data, training code, inference code, and model weights are open source. <sup>[30]</sup></li>
-            </ul>
-            
+          <p>Now, in 2026, the Smart Turn model and the SOTA LLMs we're using in voice agents have both gotten so good that using them together feels like we've finally "solved" turn detection.</p>
 
+          <p>The insight here is that we can combine the audio turn detection model's fast "filtering" of audio speech patterns, with the LLM's access to full conversation context and understanding of text conversation patterns.</p>
+
+          <p>Using <em>single-token tagging</em> is the key to making this work in production. Single-token tagging means asking the LLM to always output a single turn-detection classifier character at the beginning of the response. We use that character to decide whether the user turn is complete (and filter it out so it isn't part of the LLM output for the text-to-speech service and other downstream pipeline components). </p>
+
+          <p>For the tags, you can use any strings that map to single tokens. Here are the tokens the Pipecat <code>FilterIncompleteUserTurnStrategies</code> service uses.</p>
+          <ul>
+            <li>✓ means the agent should respond normally (immediately)</li>
+            <li>○ is a "short incomplete" - the agent should wait 5 seconds</li>
+            <li>◐ is a "long incomplete" - the agent should wait 10 seconds</li>
+          </ul>
+
+          <p>The LLM has the full conversation context when it's making the turn detection decision. So the LLM can do things like generate a ○ tag (short incomplete) when a user pauses in the middle of a phone number, but a ✓ tag when the user pauses at the end of a phone number. This works very well, and feels like magic the first time it happens, if you're used to purely VAD-based turn detection. Note that you will often need to add specific examples to the prompt mixin to tune this kind of behavior. (Phone numbers have different formats in different countries!) Here are the complete <a href="https://docs.pipecat.ai/api-reference/server/utilities/turn-management/filter-incomplete-turns">Pipecat docs</a>.</p>
+
+          <p>Here's the beginning of the <code>FilterIncompleteUserTurnStrategies</code> service's <a href="https://github.com/pipecat-ai/pipecat/blob/f9fc33ddca7d4f838c96ec5f3b5c41053dda786d/src/pipecat/turns/user_turn_completion_mixin.py#L69">default prompt mixin</a>. The full mixin is 480 words, heavily tested with GPT, Claude, and Gemini models. You can tweak this for your use case. You can also configure the short and long waits. And, if you want to develop this strategy further, you can customize the decision framework to use the signals from VAD, Smart Turn, and the LLM in different ways, or add additional signals such as computer vision that processes video of the user.</p>
+
+          <pre><code>
+# System prompt instructions for turn completion that can be appended to any base prompt
+USER_TURN_COMPLETION_INSTRUCTIONS = """
+CRITICAL INSTRUCTION - MANDATORY RESPONSE FORMAT:
+Every single response MUST begin with a turn completion indicator. This is not optional.
+
+TURN COMPLETION DECISION FRAMEWORK:
+Ask yourself: "Has the user provided enough information for me to give a meaningful, substantive response?"
+
+Mark as COMPLETE (✓) when:
+- The user has answered your question with actual content
+- The user has made a complete request or statement
+- The user has provided all necessary information for you to respond meaningfully
+- The conversation can naturally progress to your substantive response
+
+Mark as INCOMPLETE SHORT (○) when the user will likely continue soon:
+- The user was clearly cut off mid-sentence or mid-word
+- The user is in the middle of a thought that got interrupted
+- Brief technical interruption (they'll resume in a few seconds)
+
+Mark as INCOMPLETE LONG (◐) when the user needs more time:
+- The user explicitly asks for time: "let me think", "give me a minute", "hold on"
+- The user is clearly pondering or deliberating: "hmm", "well...", "that's a good question"
+- The user acknowledged but hasn't answered yet: "That's interesting..."
+- The response feels like a preamble before the actual answer
+
+RESPOND in one of these three formats:
+1. If COMPLETE: `✓` followed by a space and your full substantive response
+2. If INCOMPLETE SHORT: ONLY the character `○` (user will continue in a few seconds)
+3. If INCOMPLETE LONG: ONLY the character `◐` (user needs more time to think)
+
+KEY INSIGHT: Grammatically complete ≠ conversationally complete
+- "That's a really good question." is grammatically complete but conversationally incomplete (use ◐)
+- "I'd go to Japan because I love" is mid-sentence (use ○)
+
+EXAMPLES:
+
+You ask: "Where would you travel?"
+User: "I'd go to Japan because I love"
+→ `○`
+(Cut off mid-sentence - they'll continue in seconds)
+
+# ... continues
+          </code></pre>
 
         </div>
-        
-
         <div class="chunk-notes">
-          <div class="chunk-footnotes">
-            <div class="footnote">
-              <p>[30] <a href="https://github.com/pipecat-ai/smart-turn" target="_blank">Pipecat open source smart turn detection model</a></p>
-            </div>
+          <div class="chapter-image">
+            <a href="images/turn-detection-pipeline.png"><img src="images/turn-detection-pipeline.png" class="image-hide-narrow" width="100%" alt="Turn-detection pipeline: the user audio stream feeds streaming transcription, VAD, and the Smart Turn model; the LLM emits a single-token turn-completion classifier (complete, short incomplete, or long incomplete) at the start of its response; that token is stripped before the text reaches text-to-speech."></a>
+            <p class="image-caption image-hide-narrow">Combining VAD, Smart Turn, and LLM single-token tagging for turn detection.</p>
           </div>
         </div>
       </div>
