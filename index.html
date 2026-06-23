@@ -64,7 +64,7 @@
               </ul>
             </li>
             <li>
-              <a href="#benchmarks">5.3. Benchmarks</a>
+              <a href="#benchmarks">5.3. LLM benchmarks</a>
               <ul>
                 <li><a href="#pareto-frontier-llm">5.3.1. The intelligence/latency Pareto frontier</a></li>
               </ul>
@@ -276,8 +276,21 @@
             
             <p>We've tried to give general advice in this document, rather than recommend commercial products and services. Where we highlight specific vendors, we do so because they are used by a large percentage of voice AI developers.</p>
 
-            
-            <p>Let's get started …</p>
+            <h2 id="benchmarks-notes">3.1 Keeping up with model releases</h2>
+
+            <p>Keeping up with the fast-changing AI model landscape is a big challenge. There is a constant stream of model releases that are relevant to voice agents.</p>
+
+            <p>Benchmarks are an important way to track model progress and figure out whether to spend time fully evaluating a specific model. Unfortunately, most of the widely publicized model benchmarks aren't useful for voice AI. Voice agents are always multi-turn, so benchmarks that do not test long, multi-turn performance won't tell you how a model performs in real conversations. Latency is very important for voice agents, and most benchmarks don't report TTFT (time to first token) or similar metrics.</p>
+
+            <p>Here are the benchmarks we use to track model releases and first-party API performance:</p>
+
+            <ul class="arrow-list">
+              <li><a href="https://github.com/pipecat-ai/stt-benchmark">Speech-to-text model performance benchmark</a></li>
+              <li><a href="https://github.com/kwindla/aiewf-eval">AIEWF LLM voice agent benchmark</a> (30-turn conversation with tool calling)</li>
+              <li><a href="https://benchmarks.coval.ai/overview">Coval text-to-speech and speech-to-text benchmarks</a></li>
+              <li><a href="https://servicenow.github.io/eva/#results">ServiceNow EVA model evaluation framework</a></li>
+              <li><a href="https://humannessindex.vapi.ai/">VAPI voice model humanness index</a></li>
+            </ul>
 
         </div>
         
@@ -1538,7 +1551,9 @@ Your output will be directly converted to speech, so your response should be nat
             <li>◐ is a "long incomplete" - the agent should wait 10 seconds</li>
           </ul>
 
-          <p>Here's the beginning of that service's <a href="https://github.com/pipecat-ai/pipecat/blob/f9fc33ddca7d4f838c96ec5f3b5c41053dda786d/src/pipecat/turns/user_turn_completion_mixin.py#L69">default prompt mixin</a>. The full mixin is 480 words, heavily tested with GPT, Claude, and Gemini models. You can tweak this for your use case. You can also configure the short and long waits. And, if you want to develop this strategy further, you can customize the decision framework to use the signals from VAD, Smart Turn, and the LLM in different ways, or add additional signals such as computer vision that processes video of the user.</p>
+          <p>The LLM has the full conversation context when it's making the turn detection decision. So the LLM can do things like generate a ○ tag (short incomplete) when a user pauses in the middle of a phone number, but a ✓ tag when the user pauses at the end of a phone number. This works very well, and feels like magic the first time it happens, if you're used to purely VAD-based turn detection. Note that you will often need to add specific examples to the prompt mixin to tune this kind of behavior. (Phone numbers have different formats in different countries!) Here are the complete <a href="https://docs.pipecat.ai/api-reference/server/utilities/turn-management/filter-incomplete-turns">Pipecat docs</a>.</p>
+
+          <p>Here's the beginning of the <code>FilterIncompleteUserTurnStrategies</code> service's <a href="https://github.com/pipecat-ai/pipecat/blob/f9fc33ddca7d4f838c96ec5f3b5c41053dda786d/src/pipecat/turns/user_turn_completion_mixin.py#L69">default prompt mixin</a>. The full mixin is 480 words, heavily tested with GPT, Claude, and Gemini models. You can tweak this for your use case. You can also configure the short and long waits. And, if you want to develop this strategy further, you can customize the decision framework to use the signals from VAD, Smart Turn, and the LLM in different ways, or add additional signals such as computer vision that processes video of the user.</p>
 
           <pre><code>
 # System prompt instructions for turn completion that can be appended to any base prompt
@@ -1585,6 +1600,12 @@ User: "I'd go to Japan because I love"
 # ... continues
           </code></pre>
 
+        </div>
+        <div class="chunk-notes">
+          <div class="chapter-image">
+            <a href="images/turn-detection-pipeline.png"><img src="images/turn-detection-pipeline.png" class="image-hide-narrow" width="100%" alt="Turn-detection pipeline: the user audio stream feeds streaming transcription, VAD, and the Smart Turn model; the LLM emits a single-token turn-completion classifier (complete, short incomplete, or long incomplete) at the start of its response; that token is stripped before the text reaches text-to-speech."></a>
+            <p class="image-caption image-hide-narrow">Combining VAD, Smart Turn, and LLM single-token tagging for turn detection.</p>
+          </div>
         </div>
       </div>
 
