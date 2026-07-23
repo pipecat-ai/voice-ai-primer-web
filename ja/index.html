@@ -30,6 +30,24 @@
       list-style-type: none;
       padding-left: 20px;
     }
+    /* Japanese font configuration */
+    body {
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", "Noto Sans CJK JP", sans-serif;
+      font-size: 1rem;
+    }
+
+    /* Ensure proper font rendering for Japanese characters */
+    body * {
+      font-family: inherit;
+      -webkit-font-feature-settings: "kern" 1;
+      font-feature-settings: "kern" 1;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Smaller title font size for Japanese */
+    .title {
+      font-size: 3.75rem !important;
+    }
   </style>
 </head>
 <body>
