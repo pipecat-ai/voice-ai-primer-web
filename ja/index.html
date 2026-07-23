@@ -35,7 +35,7 @@
 <body>
 
   <div style="position: absolute; top: 1rem; right: 2rem;">
-    <a href="/ja" style="color: var(--foreground); text-decoration: none; font-weight: 500;">Japanese</a>
+    <a href="/" style="color: var(--foreground); text-decoration: none; font-weight: 500;">英語</a>
   </div>
   <div class="container">
     <div style="float: right; margin: 1rem 0 1rem 1rem; width: 10rem;">
@@ -46,7 +46,7 @@
       <h1 class="title">音声AI &amp; 音声エージェント</h1>
       <h2 class="subtitle">図解入門</h2>
     </header>
-    
+
 
     <nav id="table-of-contents">
       <h2 class="table-of-contents-title">目次</h2>
@@ -78,8 +78,8 @@
             <li>
               <a href="#speech-to-text">5.4. Speech-to-text</a>
               <ul>
-                <li><a href="#pareto-frontier">5.4.1. STTのパレートフロンティア</a></li>
-                <li><a href="#prompting-help">5.4.2. プロンプティングでLLMを補助できる</a></li>
+                <li><a href="#pareto-frontier">5.4.1. STTのリソース配分のパレートフロンティア</a></li>
+                <li><a href="#prompting-help">5.4.2. プロンプティングでLLMを補助する</a></li>
               </ul>
             </li>
             <li>
@@ -88,7 +88,7 @@
             <li>
               <a href="#audio-processing">5.6. オーディオ処理</a>
               <ul>
-                <li><a href="#microphones-agc">5.6.1. マイクと自動利得制御（AGC）</a></li>
+                <li><a href="#microphones-agc">5.6.1. マイクとゲインの自動制御（AGC）</a></li>
                 <li><a href="#echo-cancellation">5.6.2. エコーキャンセレーション</a></li>
                 <li><a href="#noise-suppression">5.6.3. ノイズ抑制、音声、音楽</a></li>
                 <li><a href="#encoding">5.6.4. エンコーディング</a></li>
@@ -97,7 +97,7 @@
               </ul>
             </li>
             <li>
-              <a href="#network-transport">5.7. ネットワークトランスポート</a>
+              <a href="#network-transport">5.7. ネットワーク伝送</a>
               <ul>
                 <li><a href="#websockets-webrtc">5.7.1. WebSocketsとWebRTC</a></li>
                 <li><a href="#http">5.7.2. HTTP</a></li>
@@ -111,21 +111,21 @@
                 <li><a href="#voice-activity-detection-4-7">5.8.1. 音声活動検出（VAD）</a></li>
                 <li><a href="#push-to-talk">5.8.2. プッシュトゥトーク</a></li>
                 <li><a href="#endpoint-markers">5.8.3. エンドポイントマーカー</a></li>
-                <li><a href="#context-aware-turn-detection">5.8.4. コンテキストを考慮したターン検出（セマンティックVADとスマートターン）</a></li>
+                <li><a href="#context-aware-turn-detection">5.8.4. コンテキストを理解したターン検出（セマンティックVADとSmart Turn）</a></li>
                 <li><a href="#sota-turn-detection">5.8.5. 最先端のターン検出：VAD、Smart Turn、LLMシングルトークンタギング</a></li>
               </ul>
             </li>
             <li>
               <a href="#interruption-handling">5.9. 割り込み処理</a>
               <ul>
-                <li><a href="#avoiding-spurious-interruptions">5.9.1. 誤った割り込みの回避</a></li>
+                <li><a href="#avoiding-spurious-interruptions">5.9.1. 誤検知による不要な割り込みの回避</a></li>
                 <li><a href="#maintaining-accurate-context">5.9.2. 割り込み後の正確なコンテキストの維持</a></li>
               </ul>
             </li>
             <li>
               <a href="#managing-conversation-context">5.10. 会話コンテキストの管理</a>
               <ul>
-                <li><a href="#differences-between-llm-apis">5.10.1. LLM API間の違い</a></li>
+                <li><a href="#differences-between-llm-apis">5.10.1. LLM APIによる違い</a></li>
                 <li><a href="#modifying-context-between-turns">5.10.2. ターン間でのコンテキストの変更</a></li>
               </ul>
             </li>
@@ -145,7 +145,7 @@
           </ul></li>
         <li><a href="#multiple-models">複数のAIモデルの活用</a>
           <ul>
-            <li><a href="#fine-tuned-models">6.1. 複数のファインチューニング済みモデルの使用</a></li>
+            <li><a href="#fine-tuned-models">6.1. 複数のファインチューニング済みモデルを利用する</a></li>
             <li><a href="#async-inference-tasks">6.2. 非同期推論タスクの実行</a></li>
             <li><a href="#content-guardrails">6.3. コンテンツガードレール</a></li>
             <li><a href="#single-inference-actions">6.4. 単一推論アクションの実行</a></li>
@@ -175,13 +175,13 @@
         <div class="chunk-content">
 
           <h1 id="conversational-voice-ai">1. 2026年の会話型音声AI</h1>
-            
-            <p>LLMは優れた会話の相手です。</p>
-            
+
+            <p>LLMは会話が得意です。</p>
+
             <p>ChatGPTやClaudeと自由形式の対話にある程度の時間を費やしたことがあれば、LLMと話すことはかなり自然に感じられ、幅広く役立つという直感をお持ちでしょう。</p>
-            
+
             <p>LLMは、非構造化情報を構造化データに変換することも得意です。<sup>[1]</sup></p>
-            
+
             <p>音声AIエージェントは、会話と、非構造化データからの構造抽出という、これら2つのLLMの能力を活用して、新しい種類のユーザー体験を生み出します。</p>
           </div>
           <div class="chunk-notes">
@@ -196,16 +196,16 @@
         <div class="chunk-row">
           <div class="chunk-content">
             <p>音声AIは今日、幅広いビジネスの場面で導入されています。例えば：</p>
-            
+
             <ul class="arrow-list">
               <li>医療機関の受診前における患者データの収集、</li>
               <li>インバウンドの営業リードへのフォローアップ、</li>
               <li>ますます多様化するコールセンター業務への対応、</li>
               <li>採用面接やユーザーリサーチのインタビュー、</li>
-              <li>企業間のスケジュール調整やロジスティクスの調整、そして</li>
-              <li>ほぼあらゆる種類の中小企業での電話応対。</li>
+              <li>企業間のスケジュール調整やロジスティクスの調整、</li>
+              <li>そしてほぼあらゆる種類の中小企業での電話応対。</li>
             </ul>
-            
+
             <p>コンシューマー側でも、会話型の音声（および映像）AIがソーシャルアプリケーションやゲームに入り始めています。また、開発者たちは毎日GitHubやソーシャルメディアで個人の音声AIプロジェクトや実験を共有しています。</p>
 
         </div>
@@ -259,21 +259,21 @@
         <div class="chunk-content">
           <h1 id="about-this-guide">3. 本ガイドについて</h1>
 
-          <p>本ガイドは、音声AIの最先端のスナップショットです。<sup>[2]</sup></p>
-                        
-            <p>本番環境で使える音声エージェントの構築は複雑です。多くの要素は、ゼロから実装するのが容易ではありません。音声AIアプリを構築する場合、本書で論じる多くの事柄についてフレームワークに頼ることになるでしょう。しかし、すべてをゼロから構築するかどうかにかかわらず、各要素がどのように組み合わさるかを理解しておくことは有益だと我々は考えています。</p>
-            
+          <p>本ガイドは、音声AIにおける最先端のスナップショットです。<sup>[2]</sup></p>
+
+            <p>本番稼働に耐えうる音声エージェントの構築は複雑です。多くの要素は、ゼロから実装するのが容易ではありません。音声AIアプリを構築する場合、本書で論じる多くの事柄についてフレームワークに頼ることになるでしょう。しかし、すべてをゼロから構築するかどうかにかかわらず、各要素がどのように組み合わさるかを理解しておくことは有益だと我々は考えています。</p>
+
             <p>本ガイドは、Sean DuBois氏のオープンソース書籍<a href="https://webrtcforthecurious.com" target="_blank">WebRTC For the Curious</a>に触発されて作られました。この本は、4年前の初版公開以来、多くの開発者がWebRTCを習得する助けとなってきました。<sup>[3]</sup></p>
 
             <p>本書の音声AIコード例には、オープンソースフレームワークの<a href="https://pipecat.ai" target="_blank">Pipecat</a>を使用しています。<sup>[4]</sup> Pipecatは最も広く使われている音声AIフレームワークであり、AWSやNVIDIAのチーム、大手AIラボのすべて、ServiceNowのようなFortune 500企業、そして何千ものスタートアップ、スケールアップ企業、個人開発者がコードベースを活用し、貢献しています。</p>
-            
+
             <p>本書では、商用の製品やサービスを推奨するのではなく、一般的なアドバイスを提供するよう心がけました。特定のベンダーに言及している場合、それは音声AI開発者の大部分に使われているためです。</p>
 
             <h2 id="benchmarks-notes">3.1. モデルリリースの動向を追う</h2>
 
             <p>急速に変化するAIモデルの状況を把握し続けるのは大きな課題です。音声エージェントに関連するモデルのリリースが絶え間なく続いています。</p>
 
-            <p>ベンチマークは、モデルの進歩を追跡し、特定のモデルを本格的に評価する時間を割くべきかどうかを判断するための重要な手段です。残念ながら、広く知られているモデルベンチマークのほとんどは音声AIには役立ちません。音声エージェントは常にマルチターンであるため、長いマルチターンの性能をテストしないベンチマークでは、実際の会話でモデルがどう振る舞うかは分かりません。音声エージェントにとってレイテンシは非常に重要ですが、ほとんどのベンチマークはTTFT（最初のトークンまでの時間）や類似の指標を報告していません。</p>
+            <p>ベンチマークは、モデルの進歩を追跡し、特定のモデルを本格的に評価する時間を割くべきかどうかを判断するための重要な手段です。残念ながら、広く知られているモデルベンチマークのほとんどは音声AIには役立ちません。音声エージェントは常にマルチターンであるため、長いマルチターンの性能をテストしないベンチマークでは、実際の会話でモデルがどう振る舞うかは分かりません。音声エージェントにとってレイテンシは非常に重要ですが、ほとんどのベンチマークはTTFT（Time To First Token:最初のトークンまでの時間）や類似の指標を報告していません。</p>
 
             <p>モデルリリースとファーストパーティAPIの性能を追跡するために我々が使っているベンチマークは以下の通りです：</p>
 
@@ -282,11 +282,11 @@
               <li><a href="https://github.com/kwindla/aiewf-eval">AIEWF LLM音声エージェントベンチマーク</a>（ツール呼び出しを含む30ターンの会話）</li>
               <li><a href="https://benchmarks.coval.ai/overview">Coval Text-to-speechおよびSpeech-to-textベンチマーク</a></li>
               <li><a href="https://servicenow.github.io/eva/#results">ServiceNow EVAモデル評価フレームワーク</a></li>
-              <li><a href="https://humannessindex.vapi.ai/">VAPI音声モデル人間らしさ指数</a></li>
+              <li><a href="https://humannessindex.vapi.ai/">VAPI 音声モデル人間らしさ指数</a></li>
             </ul>
 
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
@@ -308,27 +308,27 @@
           <h1 id="basic-loop">4. 会話型AIの基本ループ</h1>
 
             <p>音声AIエージェントの基本的な「果たすべき仕事」は、人間の発話を聞き取り、何らかの有用な形で応答し、そのシーケンスを繰り返すことです。</p>
-            
+
             <p>今日の本番環境の音声エージェントは、ほぼすべてが非常によく似たアーキテクチャを持っています。音声エージェントのプログラムはクラウドで実行され、音声→音声のループをオーケストレーションします。エージェントプログラムは複数のAIモデルを使用し、一部はエージェントのローカルで実行され、一部はAPI経由でアクセスされます。また、エージェントプログラムはLLMのFunction Callingや構造化出力を使ってバックエンドシステムと統合します。</p>
 
-            
+
             <ol class="list-decimal">
               <li>音声はユーザーのデバイスのマイクで収音され、エンコードされ、ネットワーク経由でクラウド上で実行されている音声エージェントプログラムに送信されます。</li>
               <li>入力音声は文字起こしされ、LLMへのテキスト入力が作られます。</li>
-              <li>テキストはコンテキスト — プロンプト — に組み立てられ、LLMによって推論が実行されます。推論の出力は、多くの場合エージェントプログラムのロジックによってフィルタリングまたは変換されます。<sup>[5]</sup></li>
+              <li>テキストはコンテキスト、つまりプロンプトに組み立てられ、LLMによって推論が実行されます。推論の出力は、多くの場合エージェントプログラムのロジックによってフィルタリングまたは変換されます。<sup>[5]</sup></li>
               <li>出力テキストはText-to-speechモデルに送られ、音声出力が生成されます。</li>
               <li>音声出力はユーザーに送り返されます。</li>
             </ol>
-            
-            <p>お気づきのように、音声エージェントプログラムはクラウドで動作しており、Text-to-speech、LLM、Speech-to-textの処理もクラウドで行われています。長期的には、より多くのAIワークロードがオンデバイスで実行されるようになると我々は予想しています。しかし今日のところ、<strong>本番環境の音声AIは非常にクラウド中心</strong>です。理由は2つあります：</p>
-            
+
+            <p>お気づきのように、音声エージェントプログラムはクラウドで動作しており、Text-to-speech、LLM、Speech-to-textの処理もクラウドで行われています。長期的には、より多くのAIワークロードがオンデバイスで実行されるようになると我々は予想しています。しかし今日のところ、<strong>本番環境の音声AIは特にクラウド中心</strong>です。理由は2つあります：</p>
+
             <ol class="list-decimal">
               <li>音声AIエージェントは、複雑なワークフローを低レイテンシで確実に実行するために、利用可能な最良のAIモデルを使う必要があります。エンドユーザーのデバイスには、最良のSTT、LLM、TTSモデルを許容可能なレイテンシで実行するのに十分なAI計算能力がまだありません。</li>
-              <li>今日の商用音声AIエージェントの大半は、電話を介してユーザーと通信しています。電話の場合、エンドユーザーのデバイスというものは存在しません — 少なくとも、コードを実行できるデバイスは！</li>
+              <li>今日の商用音声AIエージェントの大半は、電話を介してユーザーと通信しています。電話の場合、エンドユーザーのデバイスというものは存在しません...少なくとも、コードを実行できるデバイスは！</li>
             </ol>
-            
+
             <p>それでは、このエージェントオーケストレーションの世界に飛び込んで（dive）<sup>[6]</sup>、次のような疑問に答えていきましょう：</p>
-            
+
             <ol class="list-decimal">
               <li>音声AIエージェントに最適なLLMはどれか？</li>
               <li>長時間のセッション中に会話のコンテキストをどう管理するか？</li>
@@ -337,7 +337,7 @@
             </ol>
 
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chapter-image">
             <img src="../images/Figure 0200.svg" class="image-hide-narrow" width="100%">
@@ -348,10 +348,10 @@
               <p>[5] 例えば、よくあるLLMのエラーや安全性の問題を検出するためです。</p>
             </div>
             <div class="footnote">
-              <p>[6] Let's delve（delveしましょう） — 編注</p>
+              <p>[6] Let's delve（詳細に説明しましょう） — 編注</p>
             </div>
             <div class="footnote">
-              <p>[7] 例えば、CRM、独自のナレッジベース、コールセンターシステムなどです。</p>
+              <p>[7] 例えば、CRM、独自のナレッジベース、コールセンターシステムなど。</p>
             </div>
           </div>
         </div>
@@ -362,29 +362,29 @@
            <h1 id="core-tech">5. コア技術とベストプラクティス</h1>
         </div>
       </div>
-      
+
       <div class="chunk-row">
-        <div class="chunk-content">  
+        <div class="chunk-content">
             <h2 id="latency">5.1. レイテンシ</h2>
-            
+
             <p>音声エージェントの構築は、ほとんどの点で他の種類のAIエンジニアリングと似ています。テキストベースのマルチターンAIエージェントを構築した経験があれば、その領域での経験の多くは音声でも役立つでしょう。</p>
-            
+
             <p><strong>大きな違いはレイテンシです。</strong></p>
-            
-            <p>人間は通常の会話で素早い応答を期待します。500msの応答時間が一般的です。長い間合いは不自然に感じられます。</p>
-            
+
+            <p>人間は通常の会話で素早い応答を期待します。500msの応答時間が一般的です。長い沈黙は不自然に感じられます。</p>
+
             <p>音声AIエージェントを構築するなら、エンドユーザーの視点からレイテンシを正確に測定する方法を学ぶ価値があります。</p>
-            
-            <p>AIプラットフォームが、真の「音声から音声まで（voice-to-voice）」の測定値ではないレイテンシを提示しているのをよく見かけるでしょう。これは一般的に悪意によるものではありません。プロバイダー側から見ると、レイテンシを測定する簡単な方法は推論時間を測定することです。そのため、プロバイダーはレイテンシをそのように考えることに慣れています。しかし、このサーバー側の視点では、音声処理、エンドポイント検出の遅延、ネットワーク転送、オペレーティングシステムのオーバーヘッドが考慮されていません。</p>
-            
+
+            <p>AIプラットフォームが、実際の「音声から音声まで（voice-to-voice）」の測定値ではないレイテンシを提示しているのをよく見かけるでしょう。これは一般的に悪意によるものではありません。プロバイダー側から見ると、レイテンシを測定する簡単な方法は推論時間を測定することです。そのため、プロバイダーはレイテンシをそのように考えることに慣れています。しかし、このサーバー側の視点では、音声処理、エンドポイント検出の遅延、ネットワーク転送、オペレーティングシステムのオーバーヘッドが考慮されていません。</p>
+
             <p><strong>音声から音声までのレイテンシは、手動で簡単に測定できます。</strong></p>
-            
+
             <p>会話を録音し、その録音を音声エディタに読み込み、音声波形を見て、ユーザーの発話の終わりからLLMの発話の始まりまでを測定するだけです。</p>
-            
-            <p>本番環境向けの会話型音声アプリケーションを構築する場合は、この方法でレイテンシの数値をときどきサニティチェックする価値があります。テストの際に、擬似的なネットワークパケットロスやジッタを加えればなお良いでしょう！</p>
-            
-            <p>真の音声から音声までのレイテンシをプログラムで測定するのは困難です。レイテンシの一部はオペレーティングシステムの奥深くで発生します。そのため、ほとんどの可観測性ツールは最初の（音声）バイトまでの時間のみを測定します。これは音声から音声までの合計レイテンシの妥当な代用指標ですが、繰り返しになりますが、エンドポイント検出のばらつきやネットワークの往復時間など、測定していない要素は、追跡する手段がなければ問題になり得ることに注意してください。</p>
-            
+
+            <p>本番環境向けの会話型音声アプリケーションを構築する場合は、この方法でレイテンシの数値をときどきさっと確認する価値があります。テストの際に、擬似的なネットワークパケットロスやジッタを加えればなお良いでしょう！</p>
+
+            <p>音声から音声までのレイテンシをプログラムで測定するのは困難です。レイテンシの一部はオペレーティングシステムの奥深くで発生します。そのため、ほとんどの可観測性ツールは最初の（音声）バイトまでの時間のみを測定します。これは音声から音声までの合計レイテンシの妥当な代用指標ですが、繰り返しになりますが、エンドポイント検出のばらつきやネットワークの往復時間など、測定していない要素は、追跡する手段がなければ問題になり得ることに注意してください。</p>
+
             <p><strong>会話型AIアプリケーションを構築しているなら、音声から音声までのレイテンシ1,500 msは目指すべき重要な目標です。</strong>以下は、ユーザーのマイクからクラウドへ、そして戻ってくるまでの音声から音声までの往復の内訳です。これらの数値はごく典型的なもので、合計は約1,200 msです。したがって1,500 msの達成は容易ではありません — 電話プロバイダーが数百ミリ秒を追加すれば予算オーバーです — が、今日の最高のAIモデルとPipecatのような効率的なフレームワークを使えば達成可能です。</p>
 
             <table class="data-table latency-breakdown">
@@ -465,7 +465,7 @@
                 </tr>
               </tbody>
             </table>
-            
+
             <p class="table-caption">音声から音声までの会話の往復 — レイテンシの内訳。</p>
 
             <p>我々は、すべてのモデルを同一のGPU対応クラスタ内でホスティングし、すべてのモデルをスループットではなくレイテンシ向けに最適化することで、音声から音声までのレイテンシを500 msまで下げたPipecatエージェントを実証してきました。</p>
@@ -478,11 +478,11 @@
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="llms-for-voice">5.2. 音声ユースケースのためのLLM</h2>
-            
+
             <p>2023年3月のGPT-4のリリースが、現在の音声AI時代の幕開けとなりました。GPT-4は、柔軟なマルチターン会話を維持でき、かつ有用な作業を実行できるほど正確にプロンプトで指示できる初のLLMでした。</p>
 
             <p>今日、音声エージェントで最も広く使われているモデルはGPT-4.1、GPT-5.1、そしてGemini 2.5 Flashです。</p>
@@ -509,10 +509,10 @@
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>最近では、いくつかのモデルファミリーが、知能とレイテンシのパレートフロンティアにおいてGPTおよびGeminiモデルファミリーに挑んでいます。</p>
 
             <p>GPT-4.1とGemini 2.5 Flashがどちらも比較的古いモデルであることにお気づきでしょう。両ファミリーの新しいモデルは「リーズニング（推論）」モデルです。これらはコンテンツトークンの生成がはるかに遅くなります。Gemini 3モデルは特に遅いため、知能ベンチマークでは良い成績を収めているものの、我々は通常、音声エージェントには使用できません。</p>
@@ -520,11 +520,11 @@
             <p>とはいえ、音声エージェント構築の黎明期から、我々の考え方は進化してきました。2024年には、エージェントが「人間と同じ速さで」応答できると人々を説得することに多くの時間を費やしました。現在では、幅広いユースケースで実世界の音声エージェントをデプロイした経験から、多くの実証的な証拠が得られています。人々は、1,500 ms以内に応答するエージェントとの会話に満足しています。</p>
 
             <p>ただし、レイテンシのスパイクを発生させないこと、そしてツール呼び出しなどの機能をエージェントに追加していく際にレイテンシが1,500 msを超えてじわじわと増加しないようにすることが極めて重要です。そして、レイテンシは音声ユースケースにとって非常に重要であるため、このガイド全体を通してレイテンシの話題が頻繁に登場します。</p>
-            
+
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <table class="data-table model-comparison">
@@ -563,22 +563,22 @@
                 </tr>
               </tbody>
             </table>
-            
+
             <p>大まかな経験則として、LLMの最初のトークンまでの時間が600 ms以下であれば、ほとんどの音声AIユースケースには十分な速さです。</p>
 
             <p>P95の時間も同様に重要である点に注意してください。最近では、どのプロバイダーのパブリックAPIも、我々が望む水準よりも悪いP95の時間を示しています。</p>
 
             <p>大規模な運用であれば、AWS、GCP、Azureからコミット済みの推論コンピュートを購入することで、より低いレイテンシを実現できます。同様に、常時稼働のGPUインスタンスのベースラインコストを正当化できるだけの安定した利用量があれば、オープンウェイトモデル（例えばNVIDIA Nemotron）のセルフホスティングも興味深い選択肢になります。</p>
-            
+
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="cost-comparison">5.2.1 コスト比較</h3>
-            
+
             <p>コストと言えば、トークン単価は定期的かつ急速に下がり続けています。さらに、OpenAI、Google、Anthropicはいずれも入力トークンのキャッシングをサポートするようになり、マルチターン会話のコストをさらに削減しています。（音声エージェントの会話はすべてマルチターンです。）</p>
-            
+
             <table class="data-table model-comparison">
               <thead>
                 <tr>
@@ -618,7 +618,7 @@
             <p class="table-caption">さまざまな長さの英語での会話における、おおよそのLLMコスト。2,000トークンのシステムプロンプトを想定しています。</p>
 
             <p>音声エージェントの総コスト（LLMコストだけではなく）の見積もりに関する議論は後述を参照してください。</p>
-            
+
 
         </div>
         <div class="chunk-notes">
@@ -626,7 +626,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="open-source">5.2.2 オープンソース／オープンウェイト</h3>
@@ -649,7 +649,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="speech-to-speech">5.2.3 speech-to-speech（音声→音声）モデルはどうか？</h3>
@@ -676,7 +676,7 @@
       <div class="chunk-row">
         <div class="chunk-content">
           <p>今日のspeech-to-speechモデルとテキストモードLLMの比較は次のとおりです。</p>
-          
+
           <ul class="arrow-list">
               <li>speech-to-speechモデルでは理論上はより低いレイテンシが可能ですが、音声はテキストよりも多くのトークンを消費します。トークンコンテキストが大きくなるほど、LLMの処理は遅くなります。実際のところ、今日では、OpenAIとGoogleのspeech-to-speechモデルはどちらも、十分にチューニングされたカスケード型（マルチモデル）の音声エージェントより遅いのです。</li>
               <li>理解力の向上は、これらのモデルの実際の利点であるように見えます。これはGemini 2.5 FlashおよびGemini 3 Flashの音声入力で特に顕著です。</li>
@@ -720,7 +720,7 @@
 
       <div class="chunk-row">
         <div class="chunk-content">
-          <h3 id="pareto-frontier-llm">5.3.1 知能／レイテンシのパレートフロンティア</h3>
+          <h3 id="pareto-frontier-llm">5.3.1 知能/レイテンシのパレートフロンティア</h3>
 
           <p>エージェントにどのLLMを使うかを選ぶ際には、知能、レイテンシ、コストのすべてが重要な要素になります。</p>
 
@@ -734,7 +734,7 @@
 
           <p>我々は、最近の2つのトレンドを大きな関心を持って追跡してきました。</p>
 
-          <p>2025年後半以降、新しいモデルがこのベンチマークを飽和させ始めました。しかし、これらの新しいモデルはいずれも音声ユースケースには遅すぎます。リアルタイムの音声会話にモデルを使うには、TTFT（最初の非思考トークンまでの時間）が700msより速い必要があります。それでも、この難しいベンチマークを飽和させたことは大きなマイルストーンです。</p>
+          <p>2025年後半以降、新しいモデルがこのベンチマークを飽和させ始めました。しかし、これらの新しいモデルはいずれも音声ユースケースには遅すぎます。リアルタイムの音声会話にモデルを使うには、TTFT（つまり最初の非思考トークンまでの時間）が700msより速い必要があります。それでも、この難しいベンチマークを飽和させたことは大きなマイルストーンです。</p>
 
           <p>今年は、オープンモデルの新たな性能の飛躍が見られました。Nemotron 3 Ultraは、このベンチマークで100%のスコアを達成した初のオープンモデルです。また、オープンかプロプライエタリかを問わず、ベンチマークを飽和させ、かつ700ms未満のTTFTを実現した初のモデルでもあります。</p>
 
@@ -757,17 +757,17 @@
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="speech-to-text">5.4. Speech-to-text</h2>
-            
+
           <p>Speech-to-text は音声AIの「入力」段階です。Speech-to-text は一般に<i>文字起こし</i>または <i>ASR</i>（自動音声認識）とも呼ばれます。</p>
 
-          <p>音声AIのユースケースでは、非常に低い文字起こしレイテンシと非常に低い語誤り率が必要です。</p>
+          <p>音声AIのユースケースでは、非常に低い文字起こしレイテンシと非常に低い単語の誤り率が必要です。</p>
 
           <p>今日では、非常に低いレイテンシで優れた精度を実現する文字起こしモデルが数多く存在します。</p>
         </div>
         <div class="chunk-notes">
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="pareto-frontier">5.4.1 STTのパレートフロンティア</h3>
@@ -800,13 +800,13 @@
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="prompting-help">5.4.2 プロンプティングはLLMの助けになります。</h3>
-            
+            <h3 id="prompting-help">5.4.2 プロンプティングでLLMを補助する</h3>
+
             <p>文字起こしエラーの大部分は、リアルタイムストリームにおいて文字起こしモデルが利用できるコンテキストが非常に少ないことに起因します。</p>
-            
+
             <p>今日のLLMは、文字起こしエラーを回避できるほど賢くなっています。LLMが推論を行う際には、会話の全コンテキストにアクセスできます。したがって、入力がユーザー発話の文字起こしであることをLLMに伝え、それを踏まえて推論するよう指示できます。</p>
 
             <pre><code>You are a helpful, concise, and reliable voice assistant. Your primary goal is to understand the user's spoken requests, even if the speech-to-text transcription contains errors. Your responses will be converted to speech using a text-to-speech system. Therefore, your output must be plain, unformatted text.
@@ -823,16 +823,16 @@ Your output will be directly converted to speech, so your response should be nat
             <p class="image-caption">音声AIエージェント向けのプロンプト文言の例。</p>
         </div>
       </div>
-      
+
 
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="text-to-speech">5.5. Text-to-speech</h2>
-            
+
             <p>Text-to-speech は、音声→音声処理ループの出力段階です。</p>
-            
+
             <p>音声AI開発者は、以下に基づいて音声モデル／サービスを選択します：</p>
-            
+
             <ul class="arrow-list">
               <li>音声がどれだけ自然に聞こえるか（全体的な品質）<sup>[16]</sup></li>
               <li>レイテンシ<sup>[17]</sup></li>
@@ -856,9 +856,9 @@ Your output will be directly converted to speech, so your response should be nat
 
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>音声の選択肢は2024年と2025年に大幅に拡大しました。新しいスタートアップが登場し、最高クラスの音声品質は大きく向上し、すべてのプロバイダーがレイテンシを改善しました。</p>
-            
+
             <p>speech-to-text と同様、大手クラウドプロバイダーはいずれも text-to-speech 製品を提供しています。<sup>[18]</sup>しかし、ほとんどの音声AI開発者はそれらを使っていません。現在はスタートアップのモデルの方が優れているからです。</p>
         </div>
         <div class="chunk-notes">
@@ -871,12 +871,12 @@ Your output will be directly converted to speech, so your response should be nat
       </div>
 
       <div class="chunk-row">
-        <div class="chunk-content"> 
-            
+        <div class="chunk-content">
+
             <p>リアルタイムの会話型音声モデルで最も支持を集めているラボは（アルファベット順に）以下の通りです：</p>
-            
+
             <ul class="arrow-list">
-              <li>Cartesia – 革新的な状態空間モデルアーキテクチャを採用しています。</li>
+              <li>Cartesia – 革新的なステートスペースモデルアーキテクチャを採用しています。</li>
               <li>Deepgram – レイテンシと低コストを重視しています。Deepgram の文字起こしモデルは、音声AI向けの低レイテンシ・高精度MLモデルの草分けでした。</li>
               <li>ElevenLabs – 感情表現とコンテキストに応じたリアリズムを重視しています。</li>
               <li>Gradium – 世界で最も革新的な音声モデル研究の一部を生み出してきたフランスの非営利ラボ Kyutai の商用スピンアウトです。</li>
@@ -930,9 +930,9 @@ Your output will be directly converted to speech, so your response should be nat
             <p class="table-caption">1分あたりの概算コスト（大規模利用時）と最初のオーディオまでの時間の指標 – 2025年6月。コストはコミットするボリュームと使用する機能によって異なる点に注意してください。</p>
 
             <p>speech-to-text と同様、非英語の音声モデルには品質とサポートに大きなばらつきがあります。非英語のユースケース向けに音声AIを構築する場合は、より広範なテストが必要になるでしょう。満足できるソリューションを見つけるために、より多くのサービスとより多くの音声をテストすることになります。</p>
-            
+
             <p>すべての音声モデルは、時に単語の発音を誤りますし、固有名詞や珍しい単語の発音を必ずしも知っているとは限りません。</p>
-            
+
             <p>一部のサービスは発音を制御する機能を提供しています。テキスト出力に特定の固有名詞が含まれることが事前にわかっている場合、これは有用です。音声サービスが音素による制御をサポートしていない場合は、特定の単語について「読み方どおり」の綴りを出力するようLLMにプロンプトで指示できます。たとえば、NVIDIA の代わりに in-vidia とする、といった具合です。</p>
 
             <pre><code class="nobreak">
@@ -940,7 +940,7 @@ Your output will be directly converted to speech, so your response should be nat
               "GPU" with "gee pee you" in your responses.
             </code></pre>
             <p class="image-caption">LLMのテキスト出力を通じて発音を制御するプロンプト文言の例</p>
-            
+
 
 
 
@@ -962,16 +962,16 @@ Your output will be directly converted to speech, so your response should be nat
 
                     <p class="image-caption">Cartesia API による単語レベルのタイムスタンプ。</p>
 
-            <p>加えて、堅牢なリアルタイムストリーミングAPIがあると非常に助かります。会話型音声アプリケーションは、複数のオーディオ推論を並行してトリガーすることがよくあります。音声エージェントのコードは、進行中の推論を中断できること、そして各推論リクエストを1つの出力ストリームに対応付けられることが必要です。音声モデルプロバイダーのストリーミングAPIはいずれも比較的新しく、現在も進化を続けています。</p>
+            <p>加えて、堅牢なリアルタイムストリーミングAPIがあると助かります。会話型音声アプリケーションは、複数のオーディオ推論を並行してトリガーすることがよくあります。音声エージェントのコードは、進行中の推論を中断できること、そして各推論リクエストを1つの出力ストリームに対応付けられることが必要です。音声モデルプロバイダーのストリーミングAPIはいずれも比較的新しく、現在も進化を続けています。</p>
 
             <p>音声モデルの進歩は2026年も続くと我々は予想しています。</p>
-            
+
         </div>
-        
+
         <div class="chunk-notes">
 
 
-          
+
           <div class="chunk-footnotes">
           </div>
         </div>
@@ -980,10 +980,10 @@ Your output will be directly converted to speech, so your response should be nat
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="audio-processing">5.6. オーディオ処理</h2>
-            
-            <p>優れた音声AIプラットフォームやライブラリは、オーディオのキャプチャと処理の複雑さをほぼ隠蔽してくれます。しかし、複雑な音声エージェントを構築していると、いずれオーディオ処理のバグやコーナーケースにぶつかることになります。<sup>[19]</sup>そこで、オーディオ入力パイプラインを簡単に見ておく価値があります。</p>
+
+            <p>優れた音声AIプラットフォームやライブラリは、オーディオのキャプチャと処理の複雑さをほぼ隠蔽してくれます。しかし、複雑な音声エージェントを構築していると、いずれオーディオ処理のバグやコーナーケースにぶつかることになります。<sup>[19]</sup>そのため、オーディオ入力パイプラインをざっくり理解しておくことには価値があります。</p>
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
@@ -995,37 +995,37 @@ Your output will be directly converted to speech, so your response should be nat
 
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="microphones-agc">5.6.1 マイクと自動利得制御（AGC）</h3>
-            
+            <h3 id="microphones-agc">5.6.1 マイクとゲインの自動制御（AGC）</h3>
+
             <p>今日のマイクは、大量の低レベルソフトウェアと結合した、極めて洗練されたハードウェアデバイスです。これは通常は素晴らしいことです。モバイルデバイス、ノートPC、Bluetooth イヤホンに内蔵された小さなマイクから、素晴らしいオーディオが得られます。</p>
-            
+
             <p>しかし、この低レベルソフトウェアが我々の望む動作をしないこともあります。特に、Bluetooth デバイスは音声入力に数百ミリ秒のレイテンシを加えることがあります。これは音声AI開発者にはほぼ制御できません。しかし、ユーザーのオペレーティングシステムや入力デバイスによってレイテンシが大きく変わりうることは、知っておく価値があります。</p>
 
             <div class="chunk-image-inline">
               <img src="../images/Figure 1600.jpg" alt="Bluetooth is problematic? Always has been." class="microphone-image" width="98%">
             </div>
-            <p>ほとんどのオーディオキャプチャパイプラインは、入力信号にある程度の自動利得制御（AGC）を適用します。これも通常は望ましい動作です。ユーザーとマイクの距離などを補正してくれるからです。自動利得制御の一部は無効化できることが多いですが、コンシューマー向けデバイスでは通常、完全には無効化できません。</p>
+            <p>ほとんどのオーディオキャプチャパイプラインは、入力信号にある程度ゲインの自動制御（AGC）を適用します。これも通常は望ましい動作です。ユーザーとマイクの距離などを補正してくれるからです。AGCの一部は無効化できることが多いですが、コンシューマー向けデバイスでは通常、完全には無効化できません。</p>
         </div>
       </div>
 
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="echo-cancellation">5.6.2 エコーキャンセレーション</h3>
-            
+
             <p>ユーザーが電話を耳に当てていたり、ヘッドホンを装着していたりする場合は、ローカルのマイクとスピーカー間のフィードバックを心配する必要はありません。しかし、スピーカーフォンで話していたり、ヘッドホンなしでノートPCを使っていたりする場合は、優れたエコーキャンセレーションが極めて重要です。</p>
-            
+
             <p>エコーキャンセレーションはレイテンシに非常に敏感なため、（クラウドではなく）デバイス上で実行する必要があります。今日では、優れたエコーキャンセレーションが電話インフラのスタック、Webブラウザ、WebRTC のネイティブモバイル SDK に組み込まれています。<sup>[20]</sup></p>
-            
+
             <p>したがって、音声AI、WebRTC、または電話向けの SDK を使っていれば、ほぼすべての実環境シナリオで「ちゃんと動く」と信頼できるエコーキャンセレーションが得られるはずです。独自の音声AIキャプチャパイプラインを構築している場合は、エコーキャンセレーションのロジックをどう統合するかを自分で考える必要があります。たとえば、WebSocket ベースの React Native アプリケーションを構築している場合、デフォルトではエコーキャンセレーションは一切ありません。<sup>[21]</sup></p>
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
               <p>[20] なお、Firefox のエコーキャンセレーションはあまり優れていません。音声AI開発者には、Chrome と Safari を主要プラットフォームとして開発し、時間が許せば Firefox を二次的なプラットフォームとしてテストするだけにすることをお勧めします。</p>
             </div>
             <div class="footnote">
-              <p>[21] 我々は最近、ある方の React Native アプリのオーディオ問題のデバッグを手伝いました。根本原因は、音声AIや WebRTC の SDK を使っていなかったため、エコーキャンセレーションを自前で実装する必要があることに気づいていなかったことでした。</p>
+              <p>[21] 我々は最近、ある React Native アプリのオーディオ問題のデバッグを手伝いました。根本原因は、音声AIや WebRTC の SDK を使っていなかったため、エコーキャンセレーションを自前で実装する必要があることに気づいていなかったことでした。</p>
             </div>
           </div>
         </div>
@@ -1034,17 +1034,17 @@ Your output will be directly converted to speech, so your response should be nat
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="noise-suppression">5.6.3 ノイズ抑制、音声、音楽</h3>
-            
+
             <p>電話と WebRTC のオーディオキャプチャパイプラインは、ほぼ常にデフォルトで「音声モード」になっています。音声は音楽よりもはるかに強く圧縮でき、ノイズ低減やエコーキャンセレーションのアルゴリズムも狭帯域の信号の方が実装しやすいからです。</p>
-            
+
             <p>多くの電話プラットフォームは 8khz のオーディオしかサポートしていません。これは現代の基準では明らかに低品質です。この制限を持つシステムを経由してルーティングしている場合、打つ手はありません。ユーザーが品質に気づくかどうかはわかりません。ほとんどの人は電話の音質にあまり期待していないからです。</p>
-            
+
             <p>WebRTC は非常に高品質なオーディオをサポートしています。<sup>[22]</sup>WebRTC のデフォルト設定は通常、48khz のサンプルレート、シングルチャンネル、32 kbs の Opus エンコーディング、そして中程度のノイズ抑制アルゴリズムです。これらの設定は音声向けに最適化されています。幅広いデバイスと環境で機能し、音声AIには一般的に適切な選択です。</p>
-            
+
             <p>これらの設定では、音楽は良い音になりません！</p>
-            
+
             <p>WebRTC 接続で音楽を送る必要がある場合は、次のようにするとよいでしょう：</p>
-            
+
             <ul class="arrow-list">
               <li>エコーキャンセレーションをオフにする（ユーザーはヘッドホンを装着する必要があります）。</li>
               <li>ノイズ抑制をオフにする。</li>
@@ -1052,7 +1052,7 @@ Your output will be directly converted to speech, so your response should be nat
               <li>Opus エンコーディングのビットレートを上げる（モノラルなら 64 kbs、ステレオなら 96 kbs または 128 kbs が良い目安です）。</li>
             </ul>
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
@@ -1070,7 +1070,7 @@ Your output will be directly converted to speech, so your response should be nat
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="encoding">5.6.4 エンコーディング</h3>
-            
+
             <p>エンコーディングとは、ネットワーク接続で送信するためにオーディオデータをどのようにフォーマットするかを指す総称です。<sup>[23]</sup></p>
         </div>
         <div class="chunk-notes">
@@ -1084,9 +1084,9 @@ Your output will be directly converted to speech, so your response should be nat
 
       <div class="chunk-row">
         <div class="" chunk-content"="">
-            
+
             <p>リアルタイム通信でよく使われるエンコーディングには次のものがあります：</p>
-            
+
             <ul class="arrow-list">
               <li>16ビットPCM形式の非圧縮音声です。</li>
               <li>Opus — WebRTCおよび一部の電話システムで使用されます。</li>
@@ -1126,12 +1126,12 @@ Your output will be directly converted to speech, so your response should be nat
               </tr>
             </tbody></table>
             <p class="image-caption">音声AIで最もよく使われる音声コーデック</p>
-            
+
             <p>この3つの選択肢の中では、Opusが群を抜いて優れています。OpusはWebブラウザに組み込まれており、低レイテンシのコーデックとしてゼロから設計され、非常に効率的です。また、幅広いビットレートで良好に動作し、音声用途と高忠実度用途の両方をサポートします。</p>
-            
+
             <p>16ビットPCMは「生の音声」です。PCM音声フレームは（サンプルレートとデータ型が正しく指定されていれば）ソフトウェアのサウンドチャネルに直接送ることができます。ただし、この非圧縮音声は、一般にインターネット接続を介して送信したいものではないことに注意してください。24khz PCMのビットレートは384 kbsです。これは十分に大きなビットレートであり、エンドユーザーデバイスからの現実の接続の多くでは、バイトをリアルタイムで届けるのに苦労するでしょう。</p>
         </div>
-        
+
         <div class="chunk-notes">
         </div>
       </div>
@@ -1139,15 +1139,15 @@ Your output will be directly converted to speech, so your response should be nat
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="server-side-noise">5.6.5 サーバーサイドのノイズ処理と話者分離</h3>
-            
+
             <p>Speech-to-textモデルや音声活動検出（VAD）モデルは通常、一般的な環境ノイズ – 街の音、犬の鳴き声、マイク近くの大きなファンの音、キーボードのクリック音 – を無視できます。そのため、多くの人間同士のユースケースで極めて重要な従来型の「ノイズ抑制」アルゴリズムは、音声AIにとってはそれほど重要ではありません。</p>
-            
+
             <p>しかし、音声AIにとって特に価値のある音声処理が1つあります。それがプライマリ話者分離です。プライマリ話者分離は背景の話し声を抑制します。これにより文字起こしの精度を大幅に向上させることができます。</p>
-            
+
             <p>空港のような環境から音声エージェントに話しかける場面を考えてみてください。スマートフォンのマイクは、搭乗ゲートのアナウンスや通行人の話し声など、多くの背景音声を拾ってしまう可能性があります。LLMが見るテキストの文字起こしに、そうした背景の話し声を混ぜたくはないはずです！</p>
-            
+
             <p>あるいは、リビングルームでテレビやラジオをつけたままのユーザーを想像してみてください。人間は一般に小さな音量の背景の話し声を聞き流すのが得意なので、カスタマーサポートに電話をかける前にテレビやラジオを消そうとは必ずしも思わないものです。</p>
-            
+
             <p>自分の音声AIパイプラインで利用できる最良の話者分離モデルは、<a href="https://krisp.ai" target="_blank">Krisp</a>が販売しています。ライセンスはエンタープライズユーザー向けで、安価ではありません。しかし、大規模な商用ユースケースでは、音声エージェントの性能向上がそのコストを正当化します。</p>
 
             <p>OpenAIは<a href="https://platform.openai.com/docs/guides/realtime-transcription#realtime-transcription-sessions" target="_blank">Realtime API</a>の機能としてノイズ低減を提供しています。</p>
@@ -1159,10 +1159,10 @@ Your output will be directly converted to speech, so your response should be nat
       krisp_filter,
       vad_turn_detector,
       stt,
-      context_aggregator.user(), 
-      llm, 
-      tts, 
-      transport.output(), 
+      context_aggregator.user(),
+      llm,
+      tts,
+      transport.output(),
       context_aggregator.assistant(),
     ]
   )
@@ -1174,40 +1174,40 @@ Your output will be directly converted to speech, so your response should be nat
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="voice-activity-detection">5.6.6 音声活動検出</h3>
-            
+
             <p>音声活動検出のステージは、ほぼすべての音声AIパイプラインに組み込まれています。VADは音声セグメントを「発話」と「非発話」に分類します。VADについては、後述の<a href="#turn-detection">ターン検出</a>のセクションで詳しく説明します。</p>
         </div>
       </div>
 
       <div class="chunk-row">
         <div class="chunk-content">
-          <h2 id="network-transport">5.7. ネットワークトランスポート</h2>
-            
+          <h2 id="network-transport">5.7. ネットワーク伝送</h2>
+
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="websockets-webrtc">5.7.1 WebSocketとWebRTC</h3>
-            
+
             <p>WebSocketとWebRTCは、どちらもAIサービスの音声ストリーミングに使われています。</p>
-            
+
             <p>WebSocketはサーバー間のユースケースには最適です。また、レイテンシが最重要ではないユースケースにも問題なく使え、プロトタイピングや実験的な開発にもよく適しています。</p>
-            
+
             <p>クライアント・サーバー間のリアルタイムメディア接続には、本番環境でWebSocketを使うべきではありません。</p>
-            
+
             <p>ブラウザアプリやネイティブモバイルアプリを構築していて、会話に適したレイテンシの達成がアプリケーションにとって重要である場合は、アプリからの音声の送受信にはWebRTC接続を使うべきです。</p>
-            
+
             <p>エンドユーザーデバイスとの間のリアルタイムメディア配信にWebSocketを使う場合の主な問題は次のとおりです。</p>
-            
+
             <ul class="arrow-list">
-              <li>WebSocketはTCP上に構築されているため、音声ストリームはヘッドオブラインブロッキングの影響を受けます。</li>
+              <li>WebSocketはTCP上に構築されているため、音声ストリームはhead of line blockingの影響を受けます。</li>
               <li>WebRTCで使われるOpus音声コーデックは、WebRTCの帯域幅推定およびパケットペーシング（輻輳制御）ロジックと密に結合しており、そのおかげでWebRTCの音声ストリームは、WebSocket接続であればレイテンシが蓄積してしまうような現実世界の幅広いネットワーク挙動に対して耐性を持ちます。</li>
               <li>Opus音声コーデックは非常に優れた前方誤り訂正を備えており、比較的高いパケットロスに対しても音声ストリームは耐性を持ちます。（ただしこれが役立つのは、ネットワークトランスポートが遅れて到着したパケットを破棄でき、ヘッドオブラインブロッキングを起こさない場合に限ります。）</li>
               <li>WebRTCの音声には自動的にタイムスタンプが付与されるため、再生ロジックも割り込みロジックも簡単に実装できます。</li>
               <li>WebRTCには、詳細なパフォーマンス統計およびメディア品質統計のためのフックが含まれています。優れたWebRTCプラットフォームであれば、詳細なダッシュボードや分析が提供されます。このレベルの可観測性をWebSocketで構築するのは、非常に困難か、ほぼ不可能です。</li>
               <li>WebSocketの再接続ロジックを堅牢に実装するのはかなり困難です。ping/ackのフレームワークを自前で構築する（あるいは、使用するWebSocketライブラリが提供するフレームワークを完全にテストして理解する）必要があります。TCPのタイムアウトや接続イベントの挙動は、プラットフォームによって異なります。</li>
-              <li>最後に、今日の優れたWebRTC実装には、非常に優れたエコーキャンセレーション、ノイズ低減、自動利得制御（AGC）が備わっています。</li>
+              <li>最後に、今日の優れたWebRTC実装には、非常に優れたエコーキャンセレーション、ノイズ低減、ゲインの自動制御（AGC）が備わっています。</li>
             </ul>
 
             <p>WebRTCの使い方は2通りあります。</p>
@@ -1227,28 +1227,28 @@ Your output will be directly converted to speech, so your response should be nat
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="http">5.7.2 HTTP</h3>
-            
+
             <p>HTTPもまた、音声AIにとって依然として有用かつ重要です！HTTPはインターネット上のサービス相互接続の共通言語です。REST APIはHTTPです。WebhookもHTTPです。</p>
-            
+
             <p>テキスト指向の推論はHTTP経由で行われるため、音声AIパイプラインは通常、会話ループのLLM部分についてはHTTP APIを呼び出します。</p>
-            
+
             <p>音声エージェントは、外部サービスや内部APIとの統合にもHTTPを使用します。有用なテクニックの1つは、LLMの関数呼び出し（Function Calling）をHTTPエンドポイントにプロキシすることです。これにより、音声AIエージェントのコードとdevopsを関数の実装から分離できます。</p>
-            
+
             <p>マルチモーダルAIアプリケーションでは、HTTPとWebRTCの両方のコードパスを実装したい場合が多いでしょう。テキストモードと音声モードの両方をサポートするチャットアプリを想像してみてください。会話の状態はどちらの接続経路からもアクセスできる必要があり、これはクライアント側とサーバー側の両方のコードに影響を及ぼします（たとえば、KubernetesのポッドやDockerコンテナをどう設計するか、といった点です）。</p>
-            
+
             <p>HTTPの2つの欠点は、レイテンシと、長寿命の双方向接続を実装することの難しさです。</p>
-            
+
             <ul class="arrow-list">
               <li>暗号化されたHTTP接続のセットアップには、複数回のネットワーク往復が必要です。メディア接続のセットアップ時間を30msより大幅に短くするのはかなり難しく、現実的な最初のバイト送信までの時間は、高度に最適化されたサーバーであっても100msに近くなります。</li>
               <li>長寿命の双方向HTTP接続の管理は非常に難しいため、通常は素直にWebSocketを使う方が得策です。</li>
               <li>HTTPはTCPベースのプロトコルであるため、WebSocketに影響するのと同じヘッドオブラインブロッキングの問題がHTTPにも当てはまります。</li>
               <li>HTTPで生のバイナリデータを送ることは一般的ではないため、ほとんどのAPIはバイナリデータをbase64エンコードすることを選び、その結果メディアストリームのビットレートが増加します。</li>
             </ul>
-            
+
             <p>そこで登場するのがQUICです…</p>
 
         </div>
@@ -1259,29 +1259,29 @@ Your output will be directly converted to speech, so your response should be nat
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="quic-moq">5.7.3 QUICとMoQ</h3>
-            
+
             <p>QUICは、最新バージョンのHTTP（HTTP/3）のトランスポート層となるように、そしてその他のインターネット規模のユースケースも柔軟にサポートできるように設計された新しいネットワークプロトコルです。</p>
-            
-            <p>QUICはUDPベースのプロトコルで、上記のHTTPの問題をすべて解決します。QUICを使えば、より高速な接続時間と双方向ストリームが得られ、ヘッドオブラインブロッキングも発生しません。GoogleとFacebookは着実にQUICを展開してきており、最近では、HTTPリクエストの一部はTCPではなくUDPパケットとしてインターネットを流れています。<sup>[24]</sup></p> 
+
+            <p>QUICはUDPベースのプロトコルで、上記のHTTPの問題をすべて解決します。QUICを使えば、より高速な接続時間と双方向ストリームが得られ、ヘッドオブラインブロッキングも発生しません。GoogleとFacebookは着実にQUICを展開してきており、最近では、HTTPリクエストの一部はTCPではなくUDPパケットとしてインターネットを流れています。<sup>[24]</sup></p>
         </div>
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
               <p>[24] 長年インターネット上でものを作ってきた人にとっては、これは少々🤯な話です。HTTPはずっとTCPベースのプロトコルだったのですから！</p>
             </div>
-          </div>  
+          </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-             
+
             <p>QUICは、インターネットにおけるメディアストリーミングの未来の大きな部分を担うことになるでしょう。ただし、リアルタイムメディアストリーミング向けのQUICベースのプロトコルへの移行には時間がかかります。QUICベースの音声エージェント構築の障壁の1つは、WebSocketのQUICベースの進化形である<a href="https://w3c.github.io/webtransport/" target="_blank">WebTransport</a>のSafariサポートがごく最近始まったばかりであることです。</p>
-            
+
             <p>Media over QUIC IETFワーキンググループ<sup>[25]</sup>は、「メディアの取り込みと配信のためのシンプルで低レイテンシなメディア配信ソリューション」の開発を目指しています。あらゆる標準策定と同様に、できるだけシンプルな構成要素で、できるだけ幅広い重要なユースケースをサポートする方法をまとめ上げるのは容易ではありません。オンデマンド動画ストリーミング、大規模な動画ブロードキャスト、ライブ動画ストリーミング、多数の参加者による低レイテンシセッション、そして低レイテンシの1:1セッションへのQUICの活用に、人々は期待を寄せています。</p>
         </div>
         <div class="chunk-notes">
@@ -1294,40 +1294,40 @@ Your output will be directly converted to speech, so your response should be nat
       </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>リアルタイム音声AIのユースケースは、MoQ標準の策定に影響を与えるのにちょうど良いタイミングで成長しつつあります。</p>
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="network-routing">5.7.4 ネットワークルーティング</h3>
-            
+
             <p>長距離のネットワーク接続は、基盤となるネットワークプロトコルが何であれ、レイテンシとリアルタイムメディアの信頼性の面で問題を抱えます。</p>
-            
+
             <p><strong>リアルタイムメディア配信では、サーバーをユーザーのできるだけ近くに置くことが重要です。</strong></p>
-            
+
             <p>たとえば、英国のユーザーから北カリフォルニアのAWS us-west-1でホストされているサーバーへのパケット往復時間は、通常およそ140ミリ秒です。それに対して、同じユーザーからAWS eu-west-2へのRTTは、一般に15ミリ秒以下です。</p>
             <div class="chapter-image">
               <img src="../images/Figure 2300.svg" alt="Edge routing diagram" class="network-image" width="700">
               <p class="image-caption">英国のユーザーからAWS us-west-1へのRTTは、AWS eu-west-2へのRTTより約100ms長い</p>
             </div>
             <p>これは100ミリ秒を超える差です。音声から音声へのレイテンシ目標が1,000ミリ秒だとすると、レイテンシ「予算」の10パーセントに相当します。</p>
-            
+
             <p><strong>エッジルーティング</strong></p>
-            
+
             <p>すべてのユーザーの近くにサーバーをデプロイできるとは限りません。</p>
-            
+
             <p>世界中どこのユーザーに対しても15msのRTTを達成するには、少なくとも40のグローバルデータセンターへのデプロイが必要です。これは大変なdevops作業です。さらに、GPUを必要とするワークロードを実行していたり、それ自体がグローバルにデプロイされていないサービスに依存していたりする場合は、不可能かもしれません。</p>
-            
+
             <p>光の速さをごまかすことはできません。<sup>[26]</sup>しかし、経路の変動や輻輳を避ける努力はできます。</p>
           </div>
           <div class="chunk-notes">
             <div class="chunk-footnotes">
               <div class="footnote">
                 <p>[26] 古のネットワークエンジニアの知恵 – 編注</p>
-              </div> 
+              </div>
             </div>
           </div>
         </div>
@@ -1335,14 +1335,14 @@ Your output will be directly converted to speech, so your response should be nat
         <div class="chunk-row">
           <div class="chunk-content">
             <p>鍵となるのは、パブリックインターネット上の経路をできるだけ短く保つことです。ユーザーを近くのエッジサーバーに接続し、そこから先はプライベート経路を使います。</p>
-            
+
             <p>このエッジルーティングにより、パケットRTTの中央値が下がります。プライベートバックボーン経由の英国 → 北カリフォルニアの経路は、およそ100ミリ秒になるでしょう。100 ms（長距離のプライベート経路）+ 15 ms（パブリックインターネット上のファーストホップ）= 115 ms。このプライベート経路のRTT中央値は、パブリック経路のRTT中央値より25ms優れています。</p>
             <div class="chapter-image">
               <img src="../images/Figure 2400.svg" alt="Edge routing diagram" class="network-image" width="700">
               <p class="image-caption">英国からAWS us-west-1へのエッジルート。パブリックネットワークを通る最初のホップには依然として15msのRTTがあります。しかし、プライベートネットワーク経由で北カリフォルニアまで向かう長い経路のRTTは100msです。合計RTTは115msで、英国からus-west-1へのパブリック経路より25ms高速です。また、変動も大幅に小さくなります（パケットロスが少なく、ジッタも低い）。</p>
             </div>
             <p>しかし、RTTの中央値の改善よりもさらに重要なのは、配信信頼性の向上とジッタの低減です。<sup>[27]</sup> プライベート経路のP95 RTTは、パブリック経路のP95よりも大幅に低くなります。<sup>[28]</sup></p>
-            
+
             <p>つまり、長距離のパブリック経路を通るリアルタイムメディア接続は、プライベート経路を使う接続よりも測定可能なほど遅延が大きくなるということです。我々は各音声パケットをできるだけ速く配信しようとしていますが、音声パケットは順番どおりに再生しなければならないことを思い出してください。1つのパケットが遅延するだけで、ジッターバッファを拡大し、遅延したパケットが到着するまで他の受信済みパケットを保持せざるを得なくなります。（あるいは、時間がかかりすぎたと判断して、高度な数学的処理か、グリッチのある音声サンプルでギャップを埋めることになります。）</p>
 
           </div>
@@ -1367,7 +1367,7 @@ Your output will be directly converted to speech, so your response should be nat
             <p>優れたWebRTCインフラプロバイダーはエッジルーティングを提供しています。サーバークラスタの設置場所を示し、プライベート経路のパフォーマンスを示すメトリクスを提供できるはずです。</p>
 
         </div>
-        
+
         <div class="chunk-notes">
         </div>
       </div>
@@ -1375,7 +1375,7 @@ Your output will be directly converted to speech, so your response should be nat
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="turn-detection">5.8. ターン検出</h2>
-            
+
             <p><em>ターン検出 </em>とは、ユーザーが話し終えてLLMの応答を期待しているタイミングを判定することを意味します。</p>
 
             <p>我々（人間）は、誰かと話すたびにターン検出を行っています。<sup>[29]</sup></p>
@@ -1394,28 +1394,28 @@ Your output will be directly converted to speech, so your response should be nat
         <div class="chunk-content">
             <p>（Pipecatのようなフレームワークを使わずに）「ゼロから」構築された音声エージェントに対する最も多い苦情は、エージェントが頻繁に割り込みすぎるというものです。しかし、これは大部分が解決済みの問題です。今日の最良のターン検出アプローチを採用した音声エージェントは、実際の人間に非常に近い割り込み精度で、素早く応答します。</p>
 
-            <p>学術文献では、ターン検出のさまざまな側面は<em>フレーズ検出、音声セグメンテーション、エンドポイント検出</em>と呼ばれています。（これに関する学術文献が存在するという事実自体が、これが自明でない問題であることの手がかりです。）</p>
+            <p>学術文献では、ターン検出のさまざまな側面は<em>フレーズ検出、音声セグメンテーション、エンドポイント検出</em>と呼ばれています。（これに関する学術文献が存在するという事実自体が、これが容易でない問題であることの手がかりです。）</p>
 
             <p>ベストプラクティスの概要だけを読みたい場合は、<a href="#sota-turn-detection">最先端のターン検出</a>まで読み飛ばしてかまいません。以降のいくつかのセクションでは、ターン検出のさまざまな構成要素を順に見ていきます。</p>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="voice-activity-detection-4-7">5.8.1 音声活動検出</h3>
-            
+
             <p>音声AIエージェントでターン検出を行う一般的な方法の1つは、長いポーズはユーザーが話し終えたことを意味すると仮定することです。</p>
-            
+
             <p>音声AIエージェントのパイプラインは、小型で専門化された音声活動検出モデルを使ってポーズを識別します。VADモデルは、音声セグメントを発話か非発話かに分類するように訓練されています。（これは音量レベルだけでポーズを識別しようとするよりもはるかに堅牢です。）</p>
-            
+
             <p>VADは、音声AI接続のクライアント側でもサーバー側でも実行できます。いずれにせよクライアントで大量の音声処理を行う必要がある場合は、それを支えるためにクライアント側でVADを実行することになるでしょう。たとえば、組み込みデバイスでウェイクワードを識別し、フレーズの先頭でウェイクワードを検出した場合にのみ音声をネットワーク経由で送信する、といったケースです。<em>Hey, Siri …</em></p>
-            
+
             <p>とはいえ、一般的には、音声AIエージェントの処理ループの一部としてVADを実行する方が少しシンプルです。また、ユーザーが電話経由で接続する場合は、VADを実行できるクライアントが存在しないため、サーバー側で行う必要があります。</p>
-            
+
             <p>音声AIで最もよく使われるVADモデルは<a href="https://github.com/snakers4/silero-vad" target="_blank">Silero VAD</a>です。このオープンソースモデルはCPU上で効率的に動作し、複数の言語をサポートし、8khzと16khzの両方の音声で良好に機能し、Webブラウザで使用できるwasmパッケージとしても提供されています。リアルタイムのモノラル音声ストリームでSileroを実行しても、通常は一般的な仮想マシンのCPUコアの1/8未満しか消費しません。</p>
-            
+
             <p>ターン検出アルゴリズムには、いくつかの設定パラメータがあります。</p>
-            
+
             <ul class="arrow-list">
               <li>ターン終了と判定するために必要なポーズの長さ。</li>
               <li>発話開始イベントをトリガーするために必要な発話セグメントの長さ。</li>
@@ -1433,7 +1433,7 @@ Your output will be directly converted to speech, so your response should be nat
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <pre class="language-python"><code>
@@ -1441,63 +1441,63 @@ Your output will be directly converted to speech, so your response should be nat
   VAD_START_SECS = 0.2
   VAD_CONFIDENCE = 0.7
   VAD_MIN_VOLUME = 0.6
-  
+
 </code></pre>
-            
+
             <p>これらのパラメータを調整することで、特定のユースケースにおけるターン検出の挙動を改善できます。</p>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="push-to-talk">5.8.2 プッシュトゥトーク</h3>
-            
+
             <p>発話中のポーズに基づいてターン検出を行うことの明白な問題は、人は話し終えていなくてもポーズを置くことがある、という点です。</p>
-            
+
             <p>話し方には個人差があります。また、会話の種類によってポーズの多さも異なります。</p>
-            
+
             <p>ポーズ間隔を長く設定すると会話がぎこちなくなり、非常に悪いユーザー体験になります。一方、ポーズ間隔を短くすると、音声エージェントが頻繁にユーザーに割り込むことになり、これもまた悪いユーザー体験です。</p>
-            
+
             <p>ポーズベースのターン検出に代わる最も一般的な方法はプッシュトゥトークです。プッシュトゥトークとは、ユーザーが話し始めるときにボタンを押す（または押し続ける）ことを求め、話し終えたら再びボタンを押す（または離す）ことを求める方式です。（昔ながらのトランシーバーの仕組みを思い浮かべてください。）</p>
-            
+
             <p>プッシュトゥトークならターン検出に曖昧さはありません。ディクテーションプログラムやコーディングエージェントの音声統合では、プッシュトゥトークがよく使われます。欠点は、プッシュトゥトークのユーザー体験が自然な会話とはかなり異なることです。また、電話の音声AIエージェントではプッシュトゥトークは実現できません。</p>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="endpoint-markers">5.8.3 エンドポイントマーカー</h3>
-            
+
             <p>特定の単語をターン終了のマーカーとして使うこともできます。（CB無線で「オーバー」と言って話すトラック運転手を思い浮かべてください。）</p>
-            
+
             <p>特定のエンドポイントマーカーを識別する最も簡単な方法は、各文字起こしフラグメントに対して正規表現マッチを実行することです。ただし、小型の言語モデルを使ってエンドポイントとなる単語やフレーズを検出することもできます。</p>
-            
+
             <p>明示的なエンドポイントマーカーを使用する音声AIアプリは一般的ではありません。ユーザーはこうしたアプリとの話し方を学ばなければならないからです。しかし、このアプローチは特定の専門的なユースケースでは非常にうまく機能します。</p>
-            
+
             <p>たとえば我々は昨年、ある人がサイドプロジェクトとして自分用に構築したライティングアシスタントの素晴らしいデモを見ました。その人は、ターンのエンドポイントを示したり、モードを切り替えたりするために、さまざまなコマンドフレーズを使っていました。</p>
-            
+
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="context-aware-turn-detection">5.8.4 コンテキスト認識ターン検出（セマンティックVADとSmart Turn）</h3>
-            
+            <h3 id="context-aware-turn-detection">5.8.4 コンテキストを理解したターン検出（セマンティックVADとSmart Turn）</h3>
+
             <p>人間がターン検出を行うとき、さまざまな手がかりを使っています。</p>
-            
+
             <ul class="arrow-list">
               <li>「um（えーと）」のようなフィラー語は発話が続く可能性が高いことを示す、という識別。</li>
               <li>文法構造。</li>
               <li>電話番号は特定の桁数を持つ、といったパターンの知識。</li>
               <li>ポーズの前に最後の単語を引き延ばすといった、イントネーションや発音のパターン。</li>
             </ul>
-            
+
             <p>深層学習モデルはパターンの識別が非常に得意です。小型の専門化された分類モデルは、言語、イントネーション、発音のパターンで訓練できます。</p>
 
             <p>現在では優れたターン検出モデルがいくつも利用可能になっており、主要なSTTモデルプロバイダーはいずれも自社のSTT APIにターン検出を統合しつつあります。</p>
 
             <p><a href="https://github.com/pipecat-ai/smart-turn">Pipecat Smart Turn</a>は、23言語をサポートする、完全にオープンソースのネイティブ音声ターン検出モデルです。</p>
-            
+
             <p>Smart Turnモデルは、非常に短い無音間隔に設定されたVADによってゲートされ、文字起こしと並行して実行されます。この設計は、いくつもの有用な特性をもたらします。</p>
 
              <ul class="arrow-list">
@@ -1505,16 +1505,16 @@ Your output will be directly converted to speech, so your response should be nat
               <li>Smart Turnはテキストを処理対象としないため、文字起こしの完了を待つ必要がありません。これにより、レイテンシを可能な限り低く保てます。</li>
               <li>このモデルは小型で、一般的なクラウドvCPU上で約30msで分類結果（完全なターンか不完全なターンか）を出力できるように最適化されています。</li>
             </ul>
-            
+
             <p>これらすべてを総合すると、ユーザーが発話中にポーズしてから約250msでターンの判定を下せるということになります。</p>
-            
+
             <p>非常に安定した250msのターン分類ができることは、エージェントの挙動の設計、デバッグ、監視に役立ちます。MLモデルは一般に「ブラックボックス」であり、デバッグが困難です。しかし、我々の<em>パイプライン</em>はブラックボックスではありません。すべてのコンポーネントの動作を確認できます。</p>
 
             <p>Pipecat Smart Turnの訓練データ、訓練コード、評価/ベンチマークコードはすべて、GitHubとHuggingFaceで自由に入手できます。モデルはBSDオープンソースライセンスの下で提供されています。多くのチームがモデル改善のためにデータを提供してきました。Smart Turnの開発に貢献・参加したい方は、PRを送るか、<a href="https://discord.gg/pipecat">Pipecat Discord</a>に参加してください。</p>
 
         </div>
         <div class="chunk-notes">
-          
+
         </div>
       </div>
       <div class="chunk-row">
@@ -1527,8 +1527,8 @@ Your output will be directly converted to speech, so your response should be nat
             <li>小型で高速、かつCPU上で動作する<a href="https://github.com/pipecat-ai/smart-turn">ネイティブ音声ターン検出モデル</a>。このモデルは、文字起こしには現れない抑揚やフィラー音といった音声のニュアンスを捉えます。</li>
             <li>会話用LLMに対するプロンプトミックスイン。設定可能で、コンテキストを考慮したターン完了の判定を行います。</li>
           </ol>
-          
-          <p>これらはどれも新しいものではありません。VADは長い間使われてきました。Pipecat Smart Turnネイティブ音声モデルの最初のバージョンを我々が訓練したのは2024年12月です。そして、プロンプトベースの大規模モデルによるターン検出（「選択的拒否」と呼ばれることもあります）についても、1年以上前から実験を重ねてきました。</p>  
+
+          <p>これらはどれも新しいものではありません。VADは長い間使われてきました。Pipecat Smart Turnネイティブ音声モデルの最初のバージョンを我々が訓練したのは2024年12月です。そして、プロンプトベースの大規模モデルによるターン検出（「選択的拒否」と呼ばれることもあります）についても、1年以上前から実験を重ねてきました。</p>
 
           <p>そして2026年の現在、Smart Turnモデルと、我々が音声エージェントで使用しているSOTAのLLMの両方が非常に優れたものとなり、両者を組み合わせて使うことで、ついにターン検出を「解決」したと感じられるようになりました。</p>
 
@@ -1604,49 +1604,49 @@ User: "I'd go to Japan because I love"
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="interruption-handling">5.9. 割り込み処理</h2>
-            
+
             <p><em>割り込み処理</em>とは、ユーザーが音声AIエージェントに割り込めるようにすることです。割り込みは会話のごく普通の一部なので、割り込みをスムーズに処理することが重要です。</p>
-            
+
             <p>割り込み処理を実装するには、パイプラインのすべての部分がキャンセル可能である必要があります。また、クライアント側で音声の再生を非常に素早く停止できる必要もあります。</p>
-            
+
             <p>一般的に、割り込みが発生した際にすべての処理を停止することは、利用しているフレームワークが引き受けてくれます。<strong>ただし、リアルタイムより速く生の音声フレームを送ってくるAPIを直接使っている場合は、再生の停止と音声バッファのフラッシュを手動で行う必要があります。</strong></p>
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="avoiding-spurious-interruptions">5.9.1 誤った割り込みの回避</h3>
-            
+            <h3 id="avoiding-spurious-interruptions">5.9.1 誤検知による不要な割り込みの回避</h3>
+
             <p>意図しない割り込みの原因として、いくつか注目すべきものがあります。</p>
-            
+
             <ol class="list-decimal">
               <li>音声として分類される一過性のノイズ。優れたVADモデルは、音声と「ノイズ」の分離を非常にうまく行います。しかし、ある種の短く鋭い立ち上がりの音は、発話の冒頭に現れると中程度の音声信頼度が付与されてしまいます。咳やキーボードのクリック音はどちらもこのカテゴリに入ります。この種の割り込みの原因を最小化するために、VADの開始セグメント長と信頼度レベルを調整できます。トレードオフとして、開始セグメント長を長くし信頼度しきい値を上げると、完全な発話として検出したい非常に短いフレーズに問題が生じます。<sup>[31]</sup></li>
-              
+
               <li>エコーキャンセレーションの失敗。エコーキャンセレーションのアルゴリズムは完璧ではありません。無音から音声再生への遷移は特に難しい場面です。音声エージェントのテストを数多く行ったことがあれば、ボットが話し始めた瞬間に自分自身に割り込むのを聞いたことがあるでしょう。原因は、エコーキャンセレーションが最初の音声のわずかな部分をマイクにフィードバックさせてしまうことです。VADの最小開始セグメント長はこの問題の回避に役立ちます。また、音量レベルに指数平滑化<sup>[32]</sup>を適用して急激な音量遷移を避けることも有効です。</li>
-              
+
               <li>背景の話し声。VADモデルは、ユーザーの音声と背景の話し声を区別しません。背景の話し声が音量しきい値より大きい場合、背景の話し声が割り込みを引き起こします。話者分離の音声処理ステップを入れると、背景の話し声による誤った割り込みを減らすことができます。上記の<a href="#server-side-noise">サーバー側のノイズ処理と話者分離</a>セクションの議論を参照してください。</li>
             </ol>
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="maintaining-accurate-context">5.9.2 割り込み後の正確なコンテキストの維持</h3>
-            
+
             <p>LLMはリアルタイムより速く出力を生成するため、割り込みが発生した時点で、ユーザーへの送信を待つLLM出力がキューに溜まっていることがよくあります。</p>
-            
+
             <p>通常、会話コンテキストは（パイプラインがリアルタイムより速く生成した内容ではなく）ユーザーが実際に聞いた内容と一致させたいはずです。</p>
-            
+
             <p>おそらく、会話コンテキストをテキストとして保存してもいるでしょう。<sup>[33]</sup></p>
-            
+
             <p>そのため、ユーザーが実際にどのテキストを<em>聞いたのか</em>を把握する方法が必要になります！</p>
-            
+
             <p>最良のspeech-to-textサービスは、単語レベルのタイムスタンプデータを報告できます。この単語レベルのタイムスタンプを使って、ユーザーが聞いた音声と一致するアシスタントメッセージのテキストをバッファリングして組み立てます。上記の<a href="#text-to-speech">Text-to-speech</a>セクションにある単語レベルタイムスタンプの議論を参照してください。Pipecatはこれを自動的に処理します。</p>
 
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
@@ -1665,7 +1665,7 @@ User: "I'd go to Japan because I love"
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="managing-conversation-context">5.10. 会話コンテキストの管理</h2>
-            
+
             <p>LLMはステートレスです。つまり、マルチターンの会話では、新しい応答を生成するたびに、それまでのユーザーとエージェントのすべてのメッセージ — およびその他の設定要素 — をLLMに毎回入力し直す必要があります。</p>
 
             <pre><code>Turn 1:
@@ -1677,7 +1677,7 @@ Turn 2:
   <strong>LLM:</strong> The capital of France is Paris.
   <strong>User:</strong> Is the Eiffel Tower there?
   <strong>LLM:</strong> Yes, the Eiffel Tower is in Paris.
-  
+
 Turn 3:
   <strong>User:</strong> What's the capital of France?
   <strong>LLM:</strong> The capital of France is Paris.
@@ -1687,10 +1687,10 @@ Turn 3:
   <strong>LLM:</strong> The Eiffel Tower is about 330 meters tall.
 </code></pre>
 <p class="image-caption">毎ターン、会話履歴全体をLLMに送信する。</p>
-              
-            
+
+
             <p>各推論操作 — つまり各会話ターン — ごとに、LLMに以下を送信できます。</p>
-            
+
             <ul class="arrow-list">
               <li>システム指示</li>
               <li>会話メッセージ</li>
@@ -1703,17 +1703,17 @@ Turn 3:
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="differences-between-llm-apis">5.10.1 LLM API間の違い</h3>
-            
+            <h3 id="differences-between-llm-apis">5.10.1 LLM APIによる違い</h3>
+
             <p>この全体的な設計は、今日の主要なLLMすべてで共通です。</p>
-            
+
             <p>しかし、各プロバイダーのAPIには違いがあります。OpenAI、Google、Anthropicはそれぞれ、メッセージ形式が異なり、ツール/関数定義の構造にも違いがあり、システム指示の指定方法も異なります。</p>
-            
+
             <p>API呼び出しをOpenAIの形式に変換するサードパーティのAPIゲートウェイやソフトウェアライブラリがあります。異なるLLM間を切り替えられることは有用なので、これには価値があります。しかし、こうしたサービスが常に違いを適切に抽象化できるとは限りません。新機能や、各API固有の機能は、必ずしもサポートされていません。（また、変換レイヤーにバグがあることもあります。）</p>
-            
+
             <p>抽象化すべきか、せざるべきか — AIエンジニアリングの比較的初期にあたる現在、それが問題であり続けています。<sup>[34]</sup></p>
 
             <p>例えばPipecatは、コンテキストメッセージとツール定義の両方について、OpenAI形式との間でメッセージを相互変換します。しかし、これを行うかどうか、そしてどう行うかは、コミュニティでかなりの議論の対象になりました！<sup>[35]</sup></p>
@@ -1729,13 +1729,13 @@ Turn 3:
           </div>
         </div>
     </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="modifying-context-between-turns">5.10.2 ターン間でのコンテキストの変更</h3>
-            
+
             <p>マルチターンのコンテキストを管理しなければならないことは、音声AIエージェント開発の複雑さを増します。一方で、コンテキストを遡って変更できることは有用です。会話ターンごとに、LLMに何を送るかを正確に決めることができます。</p>
-            
+
             <p>LLMが常に完全な会話コンテキストを必要とするわけではありません。コンテキストを短縮または要約することで、レイテンシを削減し、コストを下げ、音声AIエージェントの信頼性を高めることができます。このトピックについては、下記の<a href="#scripting">スクリプティングと指示追従</a>セクションで詳しく説明します。</p>
 
 
@@ -1746,80 +1746,80 @@ Turn 3:
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="function-calling">5.11. Function Calling</h2>
-            
+
             <p>本番環境の音声AIエージェントは、LLMのFunction Callingに大きく依存しています。</p>
-            
+
             <p>Function Callingは以下の用途で使われます。</p>
-            
+
             <ul class="arrow-list">
               <li>検索拡張生成（RAG）のための情報の取得。</li>
               <li>既存のバックエンドシステムやAPIとのやり取り。</li>
               <li>電話技術スタックとの統合 — 通話転送、キューイング、DTMFトーンの送信。</li>
               <li>スクリプト追従 – ワークフローの状態遷移を実装する関数呼び出し。</li>
             </ul>
-            
+
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="function-calling-reliability">5.11.1 音声AIコンテキストにおけるFunction Callingの信頼性</h3>
-            
+
             <p>音声AIエージェントがますます複雑なユースケースに導入されるにつれ、信頼性の高いFunction Callingの重要性がますます高まっています。</p>
-            
-            <p>SOTAのLLMはFunction Callingの性能を着実に向上させていますが、音声AIのユースケースは、LLMのFunction Calling能力を限界まで引き伸ばす傾向があります。</p>
-            
+
+            <p>SOTAのLLMはFunction Callingの性能を着実に向上させていますが、音声AIのユースケースは、LLMのFunction Calling能力を限界まで引き伸ばさないといけません。</p>
+
             <p>音声AIエージェントには次のような傾向があります。</p>
-            
+
             <ul class="arrow-list">
               <li>マルチターンの会話で関数を使う。マルチターンの会話では、毎ターン、ユーザーとアシスタントのメッセージが追加されるにつれてプロンプトがますます複雑になっていきます。このプロンプトの複雑さがLLMのFunction Calling能力を低下させます。</li>
               <li>複数の関数を定義する。音声AIのワークフローでは、5つ以上の関数が必要になることは珍しくありません。</li>
               <li>セッション中に関数を何度も呼び出す。</li>
             </ul>
-            
-            <p>我々は主要なAIモデルのリリースをすべて徹底的にテストしており、これらのモデルをトレーニングしている人々とも頻繁に話をしています。上記の特性はいずれも、現世代のLLMのトレーニングに使われたデータに対してやや分布外（out of distribution）であることは明らかです。</p>
+
+            <p>我々は主要なAIモデルのリリースをすべて徹底的にテストしており、これらのモデルをトレーニングしている人々とも頻繁に話をしています。上記の特性はいずれも、現世代のLLMのトレーニングに使われたデータに対してやや分布外であることは明らかです。</p>
 
             <p>つまり、現世代のLLMは、一般的なFunction Callingのベンチマークで良い成績を収めていても、音声AIのユースケースには苦戦するということです。LLMごとに、また同じモデルのアップデートごとに、Function Callingの得意さは異なり、状況によってどの種類のFunction Callingが得意かも異なります。</p>
-            
+
             <p id="function-calling-eval"><strong>音声AIエージェントを構築しているなら、アプリのFunction Calling性能をテストする独自の評価（Evals）を開発することが重要です。下記の<a href="#evals">音声AIの評価（Evals）</a>セクションを参照してください。</strong></p>
-            
+
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="latency-function-calls">5.11.2 関数呼び出しのレイテンシ</h3>
-            
-            <p>関数呼び出しは、4つの理由からレイテンシを — 場合によっては大幅に — 増加させます。</p>
-            
+            <h3 id="latency-function-calls">5.11.2 Function Callのレイテンシ</h3>
+
+            <p>Function Callは、4つの理由からレイテンシを — 場合によっては大幅に — 増加させます。</p>
+
             <ol class="list-decimal">
-              <li>LLMが関数呼び出しを必要と判断すると、関数呼び出しリクエストメッセージを出力します。あなたのコードは、要求された関数に応じた処理を行い、その後、同じコンテキストに関数呼び出し結果メッセージを加えて再度推論を呼び出します。つまり、関数が呼び出されるたびに、推論呼び出しを1回ではなく2回行わなければなりません。</li>
-              <li>関数呼び出しリクエストはストリーミングできません。関数呼び出しを実行するには、関数呼び出しリクエストメッセージの全体が必要です。</li>
+              <li>LLMがFunction Callを必要と判断すると、Function Callリクエストメッセージを出力します。あなたのコードは、要求された関数に応じた処理を行い、その後、同じコンテキストにFunction Call結果メッセージを加えて再度推論を呼び出します。つまり、関数が呼び出されるたびに、推論呼び出しを1回ではなく2回行わなければなりません。</li>
+              <li>Function Callはストリーミングできません。Function Callを実行するには、Function Callリクエストメッセージの全体が必要です。</li>
               <li>プロンプトに関数定義を追加するとレイテンシが増加することがあります。これはやや不確かな話で、プロンプトへの関数定義の追加による追加のレイテンシを測定する、レイテンシに特化した評価（Evals）を開発するのが望ましいでしょう。しかし、少なくとも一部のAPIでは、実際に関数が呼ばれるかどうかにかかわらず、ツール使用を有効にすると中央値のTTFTが高くなる場合があることは明らかです。</li>
               <li>あなたの関数自体が遅いかもしれません！レガシーなバックエンドシステムと連携している場合、関数が値を返すまでに長い時間がかかることがあります。</li>
             </ol>
-            
-            <p>ユーザーが話し終えるたびに、かなり素早く音声フィードバックを返す必要があります。関数呼び出しの完了に時間がかかる可能性があるとわかっている場合は、何が起きているかをユーザーに伝えて待ってもらう音声を出力するとよいでしょう。</p>
+
+            <p>ユーザーが話し終えるたびに、かなり素早く音声フィードバックを返す必要があります。Function Callの完了に時間がかかる可能性があるとわかっている場合は、何が起きているかをユーザーに伝えて待ってもらう音声を出力するとよいでしょう。</p>
 
           </div>
           <div class="chunk-notes">
             <div class="chapter-image-positioned" data-align-with="function-calling-eval">
               <img src="../images/4ad.svg" alt="TTFT for inference that includes a function call" class="latency-image" width="100%">
-              <p class="image-caption">関数呼び出しを含む推論のTTFT。LLMのTTFTが450msでスループットが毎秒100トークンの場合、関数呼び出しリクエストのチャンクが100トークンなら、関数呼び出しリクエストの出力に1sかかります。その後、関数を実行して再度推論を実行します。今度は出力をストリーミングできるため、450ms後には使用可能な最初のトークンが得られます。推論全体のTTFTは1,450msです（関数自体の実行にかかる時間は含みません）。</p>
+              <p class="image-caption">Function Callを含む推論のTTFT。LLMのTTFTが450msでスループットが毎秒100トークンの場合、Function Callリクエストのチャンクが100トークンなら、Function Callリクエストの出力に1sかかります。その後、関数を実行して再度推論を実行します。今度は出力をストリーミングできるため、450ms後には使用可能な最初のトークンが得られます。推論全体のTTFTは1,450msです（関数自体の実行にかかる時間は含みません）。</p>
             </div>
           </div>
         </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>次のいずれかを行えます。</p>
-            
+
             <ul class="arrow-list">
-              <li>関数呼び出しを実行する前に必ずメッセージを出力する。「Xを行いますので、少々お待ちください……」</li>
-              <li>ウォッチドッグタイマーを設定し、タイマーが発火する前に関数呼び出しループが完了していない場合にのみメッセージを出力する。「まだ処理中です。もう少しだけお待ちください……」</li>
+              <li>Function Callを実行する前に必ずメッセージを出力する。「Xを行いますので、少々お待ちください……」</li>
+              <li>ウォッチドッグタイマーを設定し、タイマーが発火する前にFunction Callループが完了していない場合にのみメッセージを出力する。「まだ処理中です。もう少しだけお待ちください……」</li>
             </ul>
-            
-            <p>もちろん、両方を行うこともできます。また、長時間かかる関数呼び出しの実行中にBGMを流すこともできます。<sup>[36]</sup></p>
+
+            <p>もちろん、両方を行うこともできます。また、長時間かかるFunction Callの実行中にBGMを流すこともできます。<sup>[36]</sup></p>
         </div>
         <div class="chunk-notes">
           <div class="chunk-footnotes">
@@ -1829,24 +1829,24 @@ Turn 3:
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
             <h3 id="handling-interruptions">5.11.3 割り込みの処理</h3>
-            
-            <p>LLMは、関数呼び出しリクエストメッセージと関数呼び出しレスポンスメッセージが対になって現れることを想定してトレーニングされています。</p>
-            
+
+            <p>LLMは、Function CallリクエストメッセージとFunction Callレスポンスメッセージが対になって現れることを想定してトレーニングされています。</p>
+
             <p>これは次のことを意味します。</p>
-            
+
             <ol class="list-decimal">
-              <li>すべての関数呼び出しが完了するまで、音声→音声の推論ループを停止する必要があります。下記の<a href="#async-function-calls">非同期関数呼び出し</a>に関する注記を参照してください。</li>
-              <li>関数呼び出しが中断されて完了する見込みがない場合は、……何かしらを示す関数呼び出しレスポンスメッセージをコンテキストに入れる必要があります。</li>
+              <li>すべてのFunction Callが完了するまで、音声→音声の推論ループを停止する必要があります。下記の<a href="#async-function-calls">非同期Function Call</a>に関する注記を参照してください。</li>
+              <li>Function Callが中断されて完了する見込みがない場合は、……何かしらを示すFunction Callレスポンスメッセージをコンテキストに入れる必要があります。</li>
             </ol>
-            
+
             <p><strong>ここでのルールは、LLMが関数を呼び出したら、リクエスト/レスポンスのメッセージペアをコンテキストに入れる必要がある、ということです。</strong></p>
-            
+
             <ul class="arrow-list">
-              <li>未解決の関数呼び出しリクエストメッセージをコンテキストに入れたままマルチターン会話を続けると、LLMの訓練時の形式とは乖離したコンテキストを作ることになります。（一部のAPIではこれは許可されていません。）</li>
+              <li>未解決のFunction Callリクエストメッセージをコンテキストに入れたままマルチターン会話を続けると、LLMの訓練時の形式とは乖離したコンテキストを作ることになります。（一部のAPIではこれは許可されていません。）</li>
               <li>リクエスト／レスポンスのペアをコンテキストにまったく入れない場合、（インコンテキスト学習を通じて）LLMに関数を呼び出さないよう教えていることになります。<sup>[37]</sup> この場合も結果は予測不能で、おそらく望んだものにはなりません。</li>
             </ul>
         </div>
@@ -1860,37 +1860,37 @@ Turn 3:
       </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            <p>Pipecatは、関数呼び出しが開始されるたびにリクエスト／レスポンスのメッセージペアをコンテキストに挿入することで、こうしたコンテキスト管理ルールに従う手助けをします。（もちろん、この動作をオーバーライドして、関数呼び出しのコンテキストメッセージを直接管理することもできます。）</p>
-            
-            <p>以下は、2つの異なる方法――完了まで実行（run-to-completion）と割り込み可能（interruptible）――で設定された関数呼び出しにおける、このパターンの例です。</p>
-            
+            <p>Pipecatは、Function Callが開始されるたびにリクエスト／レスポンスのメッセージペアをコンテキストに挿入することで、こうしたコンテキスト管理ルールに従う手助けをします。（もちろん、この動作をオーバーライドして、Function Callのコンテキストメッセージを直接管理することもできます。）</p>
+
+            <p>以下は、2つの異なる方法――完了まで実行（run-to-completion）と割り込み可能（interruptible）――で設定されたFunction Callにおける、このパターンの例です。</p>
+
             <pre><code><strong>User:</strong>  Please look up the price of 1000 widgets.
-<strong>LLM:</strong> Please wait while I look up the price for 1000 widgets. 
+<strong>LLM:</strong> Please wait while I look up the price for 1000 widgets.
 <strong>function call request:</strong> { name: "price_lookup", args: { item: "widget", quantity: 1000 } }
 <strong>function call response:</strong> { status: IN_PROGRESS }
 </code></pre>
-<p class="image-caption">初期のコンテキストメッセージ。関数呼び出しリクエストメッセージと、関数呼び出しレスポンスのプレースホルダー。</p>
+<p class="image-caption">初期のコンテキストメッセージ。Function Callリクエストメッセージと、Function Callレスポンスのプレースホルダー。</p>
 
             <pre><code><strong>User:</strong>  Please look up the price of 1000 widgets.
 <strong>function call request:</strong> { name: "price_lookup", args: { item: "widget", quantity: 1000 } }
 <strong>function call response:</strong> { result: { price: 12.35 } }
 </code></pre>
-<p class="image-caption">関数呼び出しが完了した時点のコンテキスト。</p>
+<p class="image-caption">Function Callが完了した時点のコンテキスト。</p>
 
             <pre><code><strong>User:</strong>  Please look up the price of 1000 widgets.
-<strong>LLM:</strong> Please wait while I look up the price for 1000 widgets. 
+<strong>LLM:</strong> Please wait while I look up the price for 1000 widgets.
 <strong>function call request:</strong> { name: "price_lookup", args: { item: "widget", quantity: 1000 } }
 <strong>function call response:</strong> { status: IN_PROGRESS }
 
 <strong>User:</strong> Please lookup the price of 1000 pre-assembled modules.
-<strong>LLM:</strong> Please wait while I also look up the price for 1000 pre-assembled modules. 
+<strong>LLM:</strong> Please wait while I also look up the price for 1000 pre-assembled modules.
 <strong>function call request:</strong> { name: "price_lookup", args: { item: "pre_assembled_module", quantity: 1000 } }
 <strong>function call response:</strong> { status: IN_PROGRESS }
 </code></pre>
-<p class="image-caption">プレースホルダーにより、LLMを「混乱」させることなく、関数呼び出しの実行中も会話を続けることができます。</p>
+<p class="image-caption">プレースホルダーにより、LLMを「混乱」させることなく、Function Callの実行中も会話を続けることができます。</p>
 
             <pre><code><strong>User:</strong>  "Please look up the price of 1000 widgets."
-<strong>LLM:</strong> "Please wait while I look up the price for 1000 widgets." 
+<strong>LLM:</strong> "Please wait while I look up the price for 1000 widgets."
 <strong>function call request:</strong> { name: "price_lookup", args: { item: "widget", quantity: 1000 } }
 <span class="pre-highlight"><strong>function call response:</strong> { status: CANCELLED }</span>
 
@@ -1899,20 +1899,20 @@ Turn 3:
 <strong>function call request:</strong> { name: "price_lookup", args: { item: "pre_assembled_module", quantity: 1000 } }
 <strong>function call response:</strong> { status: IN_PROGRESS }
 </code></pre>
-<p class="image-caption">関数呼び出しが<strong>割り込み可能</strong>として設定されている場合、関数呼び出しの実行中にユーザーが話すとキャンセルされます。</p>
-            
+<p class="image-caption">Function Callが<strong>割り込み可能</strong>として設定されている場合、Function Callの実行中にユーザーが話すとキャンセルされます。</p>
+
 
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="streaming-mode">5.11.4 ストリーミングモードと関数呼び出しチャンク</h3>
-            
+            <h3 id="streaming-mode">5.11.4 ストリーミングモードとFunction Callのチャンク</h3>
+
             <p>音声AIエージェントのコードでは、会話の推論呼び出しはほぼ常にストリーミングモードで実行します。これにより最初のいくつかのコンテンツチャンクを可能な限り早く受け取ることができ、これは音声から音声への応答レイテンシにとって重要です。</p>
-            
-            <p>しかし、ストリーミングモードとFunction Callingは相性の悪い組み合わせです。ストリーミングは関数呼び出しチャンクには役立ちません。LLMの完全な関数呼び出しリクエストメッセージを組み立て終わるまで、関数を呼び出すことはできないからです。<sup>[38]</sup></p>
+
+            <p>しかし、ストリーミングモードとFunction Callingは相性の悪い組み合わせです。ストリーミングはFunction Callチャンクには役立ちません。LLMの完全なFunction Callリクエストメッセージを組み立て終わるまで、関数を呼び出すことはできないからです。<sup>[38]</sup></p>
         </div>
         <div class="chunk-notes">
           <div class="chunk-footnotes">
@@ -1922,32 +1922,32 @@ Turn 3:
           </div>
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            
-            <p>推論プロバイダーがAPIを進化させ続けるにあたってのフィードバックです。関数呼び出しチャンクをアトミックに、かつストリーミングされるコンテンツチャンクから分離して届けるモードをぜひ提供してください。これにより、LLMプロバイダーのAPIを使うコードの複雑さが大幅に軽減されるでしょう。</p>
-            
+
+            <p>推論モデルプロバイダーがAPIを進化させ続けるにあたってのフィードバックです。Function Callチャンクをアトミックに、かつストリーミングされるコンテンツチャンクから分離して届けるモードをぜひ提供してください。これにより、推論モデルプロバイダーのAPIを使うコードの複雑さが大幅に軽減されるでしょう。</p>
+
           </div>
         </div>
 
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="execute-function-calls">5.11.5 関数呼び出しをどこでどのように実行するか</h3>
-            
-            <p>LLMが関数呼び出しリクエストを出力したとき、どうすればよいでしょうか。よく使われるパターンをいくつか紹介します。</p>
-            
+            <h3 id="execute-function-calls">5.11.5 Function Callをどこでどのように実行するか</h3>
+
+            <p>LLMがFunction Callリクエストを出力したとき、どうすればよいでしょうか。よく使われるパターンをいくつか紹介します。</p>
+
             <ul class="arrow-list">
-              <li>リクエストされた関数と同じ名前の関数呼び出しを、コード内で直接実行する。これは、LLMのFunction Callingに関するほぼすべてのドキュメント例で見られる方法です。</li>
-              <li>引数とコンテキストに基づいて、リクエストを操作にマッピングする。これは、LLMに汎用的な関数呼び出しをさせて、その曖昧さをコード内で解消するものと考えることができます。このパターンの利点は、選択させる関数の数を少なくするほうが、LLMは一般にFunction Callingをうまくこなせるという点です。<sup>[39]</sup></li>
-              <li>関数呼び出しをクライアントにプロキシする。このパターンは（電話ではなく）アプリケーションのコンテキストで利用できます。たとえば、get_location() という関数を想像してください。ユーザーのデバイスの現在位置が必要なので、そのデバイス上の位置情報検索APIにフックする必要があります。</li>
-              <li>関数呼び出しをネットワークエンドポイントにプロキシする。これはエンタープライズの文脈で特に有用なことが多いパターンです。内部APIとやり取りする関数のセットを定義し、これらの関数呼び出しをHTTPリクエストとして実行する抽象化をコード内に作成します。</li>
+              <li>リクエストされた関数と同じ名前のFunction Callを、コード内で直接実行する。これは、LLMのFunction Callingに関するほぼすべてのドキュメント例で見られる方法です。</li>
+              <li>引数とコンテキストに基づいて、リクエストを操作にマッピングする。これは、LLMに汎用的なFunction Callをさせて、その曖昧さをコード内で解消するものと考えることができます。このパターンの利点は、選択させる関数の数を少なくするほうが、LLMは一般にFunction Callingをうまくこなせるという点です。<sup>[39]</sup></li>
+              <li>Function Callをクライアントにプロキシする。このパターンは（電話ではなく）アプリケーションのコンテキストで利用できます。たとえば、get_location() という関数を想像してください。ユーザーのデバイスの現在位置が必要なので、そのデバイス上の位置情報検索APIにフックする必要があります。</li>
+              <li>Function Callをネットワークエンドポイントにプロキシする。これはエンタープライズの文脈で特に有用なことが多いパターンです。内部APIとやり取りする関数のセットを定義し、これらのFunction CallをHTTPリクエストとして実行する抽象化をコード内に作成します。</li>
             </ul>
           </div>
           <div class="chunk-notes">
             <div class="chunk-footnotes">
               <div class="footnote">
-                <p>[39] ここでの関数呼び出しは広い意味のカテゴリーとして捉えてください。口語的な意味ではなく、形式的な意味での関数です。ルックアップテーブルから値を返すこともできますし、SQLクエリを実行することもできます。</p>
+                <p>[39] ここでのFunction Callは広い意味のカテゴリーとして捉えてください。口語的な意味ではなく、形式的な意味での関数です。ルックアップテーブルから値を返すこともできますし、SQLクエリを実行することもできます。</p>
               </div>
             </div>
             <div class="chapter-image">
@@ -1957,53 +1957,53 @@ Turn 3:
           </div>
 
         </div>
-      
-      
+
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="async-function-calls">5.11.6 非同期関数呼び出し</h3>
-            
-            <p>関数呼び出しからすぐに戻りたくない場合もあります。関数の完了までに予測できないほど長い時間がかかると分かっている場合。そもそも完了しないかもしれない場合。さらには、時間の経過とともに自由な形でコンテキストに情報を追加していける、長時間実行プロセスを起動したい場合すらあります。</p>
-            
+            <h3 id="async-function-calls">5.11.6 非同期Function Call</h3>
+
+            <p>Function Callからすぐに戻りたくない場合もあります。関数の完了までに予測できないほど長い時間がかかると分かっている場合。そもそも完了しないかもしれない場合。さらには、時間の経過とともに自由な形でコンテキストに情報を追加していける、長時間実行プロセスを起動したい場合すらあります。</p>
+
             <p>ツアー中に見かけるかもしれないものへの興味をユーザーが表明できる、ウォーキングツアーアプリを想像してください。「有名な作家が住んでいた場所を通りかかったら、ぜひその話を聞きたいです。」これを実現する優れたアーキテクチャの1つは、ユーザーが特定の興味を表明するたびにLLMが関数を呼び出すというものです。その関数はバックグラウンドプロセスを開始し、その興味に関連するものが見つかるたびにコンテキストへ情報を注入します。</p>
-            
-            <p><strong>現在のところ、LLMのFunction Callingを使ってこれを直接行うことはできません。関数呼び出しのリクエスト／レスポンスメッセージは、コンテキスト内に揃って現れなければならないのです。</strong></p>
-            
+
+            <p><strong>現在のところ、LLMのFunction Callingを使ってこれを直接行うことはできません。Function Callのリクエスト／レスポンスメッセージは、コンテキスト内に揃って現れなければならないのです。</strong></p>
+
             <p>つまり、次のような形の関数を定義するのではなく、</p>
-            
+
             <ul class="arrow-list">
               <li><pre><code>register_interest_generator(interest: string) -&gt; Iterator[Message]</code></pre></li>
             </ul>
-            
+
             <p>次のようにする必要があります。</p>
-            
+
             <ul class="arrow-list">
               <li><pre><code>create_interest_task_and_return_success_immediately
-  (interest: string, context_queue_callback: Callable[Message]) -&gt; 
+  (interest: string, context_queue_callback: Callable[Message]) -&gt;
     Literal["in_progress", "canceled", "success", "failure"]</code></pre></li>
             </ul>
-            
+
             <p>このトピックのより詳しい議論については、後述の<a href="#async-inference-tasks">非同期推論タスクの実行</a>セクションを参照してください。</p>
-            
+
             <p>LLMとAPIがマルチモーダルな会話ユースケースをより良くサポートするよう進化していく中で、LLM研究者には、非同期関数や、ジェネレーターとして動作する長時間実行関数といったアイデアをぜひ探求してほしいと我々は考えています。</p>
-            
+
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-            <h3 id="parallel-composite-function-calling">5.11.7 並列関数呼び出しと複合関数呼び出し</h3>
-            
-            <p><em>並列関数呼び出し</em>とは、LLMが1回の推論レスポンスで複数の関数呼び出しをリクエストできることを意味します。<em>複合関数呼び出し</em>とは、LLMが複数の関数を柔軟に連続して呼び出し、関数を連鎖させて複雑な操作を実行できることを意味します。</p>
-            
+            <h3 id="parallel-composite-function-calling">5.11.7 並列Function Callと複合Function Call</h3>
+
+            <p><em>並列Function Call</em>とは、LLMが1回の推論レスポンスで複数のFunction Callをリクエストできることを意味します。<em>複合Function Call</em>とは、LLMが複数の関数を柔軟に連続して呼び出し、関数を連鎖させて複雑な操作を実行できることを意味します。</p>
+
             <p>これらはエキサイティングな機能です！</p>
-            
-            <p>しかし、これらは音声エージェントの挙動の変動性も増大させます。つまり、実際の会話で並列関数呼び出しと複合関数呼び出しが期待どおりに機能しているかをテストする評価（Evals）とモニタリングを開発する必要があるということです。</p>
-            
-            <p>並列関数呼び出しへの対応は、エージェントのコードを複雑にします。我々は、特定の用途がない限り並列関数呼び出しを無効にすることをよく推奨しています。</p>
-            
-            <p>複合関数呼び出しは、うまく機能すると魔法のように感じられます。我々が初期に目にした複合関数呼び出しのお気に入りの一例は、Claude Sonnet 3.5 がファイル名とタイムスタンプに基づいてファイルからリソースをロードするために、関数を連鎖させる様子でした。</p>
-            
+
+            <p>しかし、これらは音声エージェントの挙動の変動性も増大させます。つまり、実際の会話で並列Function Callと複合Function Callが期待どおりに機能しているかをテストする評価（Evals）とモニタリングを開発する必要があるということです。</p>
+
+            <p>並列Function Callへの対応は、エージェントのコードを複雑にします。我々は、特定の用途がない限り並列Function Callを無効にすることをよく推奨しています。</p>
+
+            <p>複合Function Callは、うまく機能すると魔法のように感じられます。我々が初期に目にした複合Function Callのお気に入りの一例は、Claude Sonnet 3.5 がファイル名とタイムスタンプに基づいてファイルからリソースをロードするために、関数を連鎖させる様子でした。</p>
+
             <pre><code><strong>User:</strong> Claude, load the most recent picture I have of the Eiffel Tower.
 <strong>function call request:</strong> &lt;list_files()&gt;
 <strong>function call response:</strong> &lt;['eiffel_tower_1735838843.jpg', 'empire_state_building_1736374013.jpg', 'eiffel_tower_1737814100.jpg', 'eiffel_tower_1737609270.jpg',
@@ -2014,8 +2014,8 @@ Turn 3:
 Tower on a cloudy day.
 </code></pre>
             <p class="image-caption">LLMは、特定の指示に応えるために2つの関数 – <strong> list_files()</strong> と <strong>load_resource()</strong> – を連鎖させる方法を自ら見つけ出します。2つの関数はツールリストに記述されています。しかし、この連鎖動作はプロンプトで指示されたものではありません。</p>
-            
-            <p>複合関数呼び出しは、SOTAのLLMにおける比較的新しい機能です。性能は「ギザギザ（jagged）」で、驚くほど優れている一方、苛立たしいほど一貫性がありません。</p>
+
+            <p>複合Function Callは、SOTAのLLMにおける比較的新しい機能です。性能は「ギザギザ（jagged）」で、驚くほど優れている一方、苛立たしいほど一貫性がありません。</p>
 
         </div>
       </div>
@@ -2023,19 +2023,19 @@ Tower on a cloudy day.
       <div class="chunk-row">
         <div class="chunk-content">
           <h2 id="multimodality">5.12. マルチモーダリティ</h2>
-            
+
             <p>LLMは今や、テキストに加えて音声、画像、動画も入出力できます。</p>
-            
+
             <p>先ほど<a href="#speech-to-speech">speech-to-speech（音声→音声）モデル</a>について述べました。これらは、音声を入力として受け取り、音声を出力として生成できるモデルです。</p>
-            
+
             <p>SOTAモデルのマルチモーダル機能は急速に進歩しています。</p>
-            
+
             <p>GPT、Gemini、Claudeの各モデルはいずれも非常に優れたビジョン機能を持っており、すべて画像を入力として受け付けます。これらのモデルのビジョンサポートは、当初は画像内容の説明と、画像内に現れるテキストの文字起こしに焦点を当てていました。機能はリリースのたびに拡大しています。物体のカウント、バウンディングボックスの特定、画像内の物体間の関係のより良い理解は、いずれも新しいリリースで利用できる有用な能力です。</p>
-            
+
             <p>Gemini Flashは動画入力に対する推論が可能で、映像トラックと音声トラックの両方を理解できます。<sup>[40]</sup></p>
-            
+
             <p>音声対応アプリケーションの興味深い新しいカテゴリーの1つが、画面を「見て」、ローカルマシンやWebブラウザ上でのタスク実行を手伝えるアシスタントです。音声駆動のWebブラウジングのためのスキャフォールディングを構築した人は数多くいます。</p>
-            
+
             <p>我々の知る何人かのプログラマーは、最近ではタイプするのと同じくらい話しています。音声入力をつないでClaude Code<sup>[41]</sup>やCodexを操作するのはかなり簡単です。さらに画面キャプチャを接続すれば、AIプログラミングアシスタントが、あなたの見ているものとまったく同じもの――エディタ内のコード、構築中のWebアプリのUIの状態、ターミナルのPythonスタックトレース――を見られるようにすることも可能です。このような完全にマルチモーダルなAIプログラミングアシスタントは、本ドキュメントを通じて語ってきた「未来の片鱗」のもう1つの例のように感じられます。<sup>[42]</sup></p>
         </div>
         <div class="chunk-notes">
@@ -2055,20 +2055,20 @@ Tower on a cloudy day.
       </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>現在、すべてのSOTAモデルは、それぞれ異なる組み合わせでマルチモーダリティをサポートしています。</p>
-            
+
             <ul class="arrow-list">
               <li>GPT-4.1は、テキストと画像の入力、およびテキストの出力に対応しています。</li>
               <li>gpt-realtimeは、テキスト・音声・画像の入力、およびテキストと音声の出力に対応しています。</li>
               <li>Gemini Flashは、テキスト・音声・画像・動画の入力に対応していますが、出力はテキストのみです。</li>
               <li>OpenAIのspeech-to-textモデルとtext-to-speechモデルは、完全にステアリング可能で、gpt-4oを基盤として構築されていますが、テキストと音声の相互変換に特化しています。具体的には、gpt-4o-transcribe、gpt-4o-mini-transcribe、gpt-4o-mini-ttsです。</li>
             </ul>
-            
+
             <p>マルチモーダルサポートは急速に進化しており、上記のリストはすぐに古くなると我々は予想しています！</p>
-            
+
             <p>音声AIにとって、マルチモーダリティの最大の課題は、音声と画像が大量のトークンを消費し、トークンが増えるほどレイテンシが高くなることです。</p>
-            
+
             <table class="data-table">
               <tbody><tr>
                 <th>メディアの例</th>
@@ -2091,11 +2091,11 @@ Tower on a cloudy day.
                 <td>15,000</td>
               </tr>
             </tbody></table>
-            
+
             <p>一部のアプリケーションでは、大量の画像を扱いながら会話に適したレイテンシを達成することが、大きなエンジニアリング課題となります。会話に適したレイテンシを実現するには、コンテキストを小さく保つか、ベンダー固有のキャッシングAPIに頼るかのいずれかが必要です。画像はコンテキストに大量のトークンを追加します。</p>
-            
+
             <p>コンピューター上で常時稼働し、作業ループの一環としてあなたの画面を監視するパーソナルアシスタントエージェントを想像してください。「1時間前、ツイートを読もうとしたときにあの電話がかかってきて、そのまま忘れてタブを閉じちゃったんだけど、あのツイートは何だった？」と尋ねられると便利でしょう。</p>
-            
+
             <p><em>1時間前というのは、ほぼ100万トークンに相当します。</em>たとえモデルのコンテキストが100万トークンを収容できるとしても<sup>[43]</sup>、毎ターンそれだけのトークンを使ってマルチターン会話を行うコストとレイテンシは法外なものになります。</p>
         </div>
         <div class="chunk-notes">
@@ -2108,13 +2108,13 @@ Tower on a cloudy day.
       </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>動画をテキストとして要約し、要約だけをコンテキストに保持することができます。埋め込みを計算してRAGのような検索を行うこともできます。LLMは、特徴の要約も、Function Callingを使った複雑なRAGクエリのトリガーも、どちらもかなり得意です。しかし、どちらのアプローチもエンジニアリングが複雑になります。</p>
-            
+
             <p>最終的に、最大のレバーとなるのはコンテキストキャッシングです。SOTAのAPIプロバイダーはすべて、何らかの形でキャッシングをサポートしています。現時点のキャッシング機能はどれも、音声AIのユースケースにとってはまだ完璧ではありません。マルチモーダルでマルチターンの会話ユースケースがSOTAモデルを訓練する人々からより注目されるようになるにつれ、今年はキャッシングAPIが改善されていくと我々は期待しています。</p>
 
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
           </div>
@@ -2124,11 +2124,11 @@ Tower on a cloudy day.
       <div class="chunk-row">
         <div class="chunk-content">
           <h1 id="multiple-models">6. 複数のAIモデルの利用</h1>
-            
+
             <p>今日の本番環境の音声AIエージェントは、複数のディープラーニングモデルを組み合わせて使用しています。<sup>[44]</sup></p>
-            
+
             <p>これまで述べてきたように、典型的な音声AIの処理ループでは、speech-to-textモデルでユーザーの声を文字起こしし、文字起こしされたテキストをLLMに渡して応答を生成し、その後text-to-speechステップを実行してエージェントの音声出力を生成します。</p>
-            
+
             <p>さらに、今日の本番環境の音声エージェントの多くは、複数のモデルを複雑かつ多様な方法で使用しています。</p>
         </div>
         <div class="chunk-notes">
@@ -2142,8 +2142,8 @@ Tower on a cloudy day.
 
       <div class="chunk-row">
         <div class="chunk-content">
-            <h2 id="fine-tuned-models">6.1. 複数のファインチューニング済みモデルの使用</h2>
-            
+            <h2 id="fine-tuned-models">6.1. 複数のファインチューニング済みモデルを利用する</h2>
+
             <p>ほとんどの音声AIエージェントは、OpenAIまたはGoogle（場合によってはAnthropicやMeta）のSOTA<sup>[45]</sup>モデルを使用しています。音声AIのワークフローは一般に、モデル能力の<em>ジャグド・フロンティア</em><sup>[46]</sup>のまさに端に位置するため、最新かつ最高性能のモデルを使うことが重要です。音声エージェントは、複雑な指示に従い、人と自然な形で自由な会話に参加し、関数やツールを確実に使用できる必要があります。</p>
         </div>
         <div class="chunk-notes">
@@ -2157,9 +2157,9 @@ Tower on a cloudy day.
 
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>しかし、一部の特化したユースケースでは、会話の異なる状態ごとにモデルをファインチューニングすることが理にかなう場合があります。ファインチューニングされたモデルは、大規模モデルよりも小さく、高速で、実行コストを抑えられる一方、特定のタスクでは同等（またはそれ以上）の性能を発揮できます。</p>
-            
+
             <p>非常に大規模な産業用品カタログからの部品注文を支援するエージェントを想像してみてください。このタスクのために、プラスチック素材、金属素材、締結部品、配管、電気、安全装備など、それぞれ異なるカテゴリに特化した複数のモデルを訓練するかもしれません。</p>
 
           </div>
@@ -2172,17 +2172,17 @@ Tower on a cloudy day.
           </div>
         </div>
       <div class="chunk-row">
-        <div class="chunk-content">          
-            
+        <div class="chunk-content">
+
             <p>ファインチューニングされたモデルは、一般に2つの重要なカテゴリの事柄を「学習」できます。</p>
-            
+
             <ol class="list-decimal">
               <li>埋め込まれた知識 — モデルは事実を学習できます。</li>
               <li>応答パターン — モデルは特定の方法でデータを変換することを学習でき、これには会話のパターンやフローの学習も含まれます。</li>
             </ol>
-            
+
             <p>我々の仮想の産業用品会社には、豊富な生データがあります。</p>
-            
+
             <ul class="arrow-list">
               <li>カタログ内のすべての部品に関するデータシート、メーカー推奨事項、価格、社内データからなる非常に大規模なナレッジベース。</li>
               <li>テキストチャットのログ、メールのやり取り、人間のサポート担当者との電話会話の文字起こし。</li>
@@ -2191,13 +2191,13 @@ Tower on a cloudy day.
               <img src="../images/5a.svg" alt="Using fine-tuned models" class="chunk-image-inline" width="60%">
               <p class="image-caption">特定の会話トピックへのファインチューニング済みモデルの使用。さまざまなアーキテクチャ上のアプローチが可能です。この例では、各会話ターンの開始時にルーターLLMが全コンテキストを分類します。</p>
             </div>
-            
+
             <p>この生データをモデルのファインチューニング用データセットに変換するのは大きな作業ですが、十分に実行可能です。必要となるデータクリーニング、データセット作成、モデル訓練、モデル評価は、いずれもよく理解された問題です。</p>
-            
+
             <p><strong>重要な注意点が1つあります。いきなりファインチューニングに飛びつかず、プロンプトエンジニアリングから始めてください。</strong></p>
-            
+
             <p>プロンプティングは、ほぼ常にファインチューニングと同じタスク成果を達成できます。ファインチューニングの利点は、より小さなモデルを使えることであり、それは推論の高速化とコストの低減につながります。<sup>[47]</sup></p>
-            
+
             <p>プロンプティングであれば、ファインチューニングよりもはるかに簡単に始められ、はるかに素早くイテレーションできます。<sup>[48]</sup></p>
 
             <p>異なる会話状態に異なるモデルをどう使うかを最初に検討する際は、プロンプトをミニチュアの「モデル」と考えてみてください。大規模でコンテキストに特化したプロンプトを作り込むことで、LLMに何をすべきかを教えているのです。</p>
@@ -2222,36 +2222,36 @@ Tower on a cloudy day.
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="async-inference-tasks">6.2. 非同期推論タスクの実行</h2>
-            
+
             <p>LLMを、実行に比較的長い時間がかかるタスクに使いたい場合もあります。コアの会話ループでは、約1秒（またはそれ以下）の応答時間を目指していることを思い出してください。タスクに数秒以上かかる場合、選択肢は2つあります。</p>
-            
+
             <ol class="list-decimal">
               <li>何が起きているかをユーザーに伝え、待ってもらう。<em>「お調べしますので、少々お待ちください……」</em></li>
               <li>時間のかかるタスクを非同期で実行し、バックグラウンドで処理が進む間も会話を続けられるようにする。<em>「お調べしますね。その間に、他にご質問はありますか？」</em></li>
             </ol>
-            
+
             <p>推論タスクを非同期で実行する場合、その特定のタスクには別のLLMを使うという選択もあり得ます。（コアの会話ループから切り離されているためです。）音声応答には遅すぎて許容できないLLMや、特定のタスク用にファインチューニングしたLLMを使うこともできます。</p>
 
             <p>非同期推論タスクの例をいくつか挙げます。</p>
-            
+
             <ul class="arrow-list">
               <li>コンテンツ「ガードレール」の実装。（<a href="#content-guardrails">コンテンツガードレール</a>のセクションを参照。）</li>
               <li>画像の作成。</li>
               <li>サンドボックスで実行するコードの生成。</li>
             </ul>
-            
+
             <p>昨年のリーズニング（推論）モデルの目覚ましい進歩により、LLMに依頼できることの幅が広がりました。ただし、これらのモデルは使用可能な出力を出す前に思考トークンの生成にかなりの時間を費やすことが多いため、音声AIの会話ループには使えません。しかし、マルチモデルの音声AIアーキテクチャの非同期部分としてリーズニングモデルを使うことは、うまく機能し得ます。</p>
 
         </div>
       </div>
-      
+
       <div class="chunk-row">
         <div class="chunk-content">
-             
+
             <p>非同期推論は通常、LLMの関数呼び出し（Function Calling）によってトリガーされます。シンプルなアプローチは、2つの関数を定義することです。</p>
 
             <ul class="arrow-list">
-              <li><code>perform_async_inference()</code> — 長時間実行される推論タスクを実行すべきだとLLMが判断したときに、LLMによって呼び出されます。この種の関数は複数定義できます。関数呼び出しのリクエストとレスポンスのメッセージがコンテキスト内で正しく順序付けられるよう、非同期タスクを開始したら直ちに<em>タスクの開始に成功しました</em>という基本的なレスポンスを返す必要がある点に注意してください。<sup>[50]</sup></li>
+              <li><code>perform_async_inference()</code> — 長時間実行される推論タスクを実行すべきだとLLMが判断したときに、LLMによって呼び出されます。この種の関数は複数定義できます。Function Callのリクエストとレスポンスのメッセージがコンテキスト内で正しく順序付けられるよう、非同期タスクを開始したら直ちに<em>タスクの開始に成功しました</em>という基本的なレスポンスを返す必要がある点に注意してください。<sup>[50]</sup></li>
               <li><code>queue_async_context_insertion()</code> — 非同期推論が完了したときに、オーケストレーション層によって呼び出されます。ここで厄介なのは、結果をコンテキストにどう挿入するかが、何を実現しようとしているか、そして使用しているLLM/APIが何を許可しているかに依存する点です。1つのアプローチは、進行中の会話ターンの終了（すべての関数呼び出しの完了を含む）まで待ち、非同期推論の結果を特別に作り込んだユーザーメッセージに入れて、もう1つの会話ターンを実行することです。</li>
             </ul>
 
@@ -2259,7 +2259,7 @@ Tower on a cloudy day.
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
-              <p>[50] <a href="#async-function-calls">非同期関数呼び出し</a>を参照してください。</p>
+              <p>[50] <a href="#async-function-calls">非同期Function Call</a>を参照してください。</p>
             </div>
           </div>
         </div>
@@ -2268,51 +2268,51 @@ Tower on a cloudy day.
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="content-guardrails">6.3. コンテンツガードレール</h2>
-            
+
             <p>音声AIエージェントには、一部のユースケースで大きな問題を引き起こすいくつかの脆弱性があります。</p>
-            
+
             <ul class="arrow-list">
               <li>プロンプトインジェクション</li>
               <li>ハルシネーション</li>
               <li>古くなった知識</li>
               <li>不適切または安全でないコンテンツの生成</li>
             </ul>
-            
+
             <p><em>コンテンツガードレール</em>とは、これらを検出しようとするコードの総称です。偶発的および悪意のあるプロンプトインジェクションの両方からLLMを保護し、問題のあるLLM出力がユーザーに送信される前に捕捉します。</p>
-            
+
             <p>ガードレールに特定のモデル（または複数のモデル）を使うことには、いくつかの潜在的な利点があります。</p>
-            
+
             <ul class="arrow-list">
               <li>小さなモデルは、ガードレールや安全性モニタリングに適していることがあります。問題のあるコンテンツの特定は、比較的特化したタスクになり得ます。（実際、特にプロンプトインジェクションの軽減に関しては、完全に汎用的な方法でプロンプトできるモデルが必ずしも望ましいとは限りません。）</li>
               <li>ガードレールの処理に別のモデルを使うことには、メインのモデルと全く同じ弱点を持たないという利点があります。少なくとも理論上は。</li>
             </ul>
-            
+
             <p>いくつかのオープンソースのエージェントフレームワークには、ガードレールのコンポーネントがあります。</p>
-            
+
             <ul class="arrow-list">
               <li>llama-guardはMetaの<a href="https://github.com/facebookresearch/llama-stack" target="_blank">llama-stack</a>の一部です</li>
               <li><a href="https://github.com/NVIDIA/NeMo-Guardrails" target="_blank">NeMO Guardrails</a>は、LLMベースの会話型アプリケーションにプログラム可能なガードレールを追加するためのオープンソースのツールキットです</li>
             </ul>
-            
+
           <div class="chapter-image">
             <img src="../images/5b.svg" alt="NeMo Guardrails framework" class="chunk-image-inline" width="60%">
             <p class="image-caption">NVIDIAのNeMo Guardrailsフレームワークがサポートする5種類のガードレール。図はNeMo Guardrailsのドキュメントより。</p>
           </div>
             <p>これらのフレームワークはどちらも、音声AIではなくテキストチャットを念頭に設計されています。しかし、どちらにも有用なアイデアと抽象化があり、ガードレール、安全性、コンテンツモデレーションについて検討しているなら一見の価値があります。</p>
-            
+
             <p><strong>注目すべきは、LLMがこれらすべての問題を回避する能力は、1年前と比べて格段に向上しているという点です。</strong></p>
-            
-            <p>大手ラボの最新モデルでは、ハルシネーション全般はもはや大きな問題ではありません。最近、我々が定期的に目にするハルシネーションは2つのカテゴリだけです。</p>
-            
+
+            <p>大手AIラボの最新モデルでは、ハルシネーション全般はもはや大きな問題ではありません。最近、我々が定期的に目にするハルシネーションは2つのカテゴリだけです。</p>
+
             <ul class="arrow-list">
-              <li>LLMが関数を呼び出す「ふり」をして、実際には呼び出さないケース。これはプロンプティングで修正可能です。使用しているプロンプトでこれが起こるケースがないことを確認するには、優れた評価（Evals）が必要です。評価で関数呼び出しのハルシネーションを見つけたら、それが見られなくなるまでプロンプトを改善してください。（マルチターンの会話はLLMの関数呼び出し能力に<em>非常に</em>大きな負荷をかけるため、評価は実世界のマルチターン会話を反映している必要があることを忘れないでください。）</li>
-              <li>Web検索を期待しているときにLLMがハルシネーションを起こすケース。組み込みの検索グラウンディングは、LLM APIの比較的新しい機能です。LLMが検索を実行するかどうかは、まだ少し予測がつきません。検索しない場合、モデルは重みに埋め込まれた（古い）知識で応答するか、ハルシネーションを起こすことがあります。関数呼び出しのハルシネーションと異なり、これはプロンプティングで修正するのは特に容易ではありません。しかし、検索が実際に実行されたかどうかを知るのは簡単です。そのため、その情報をアプリケーションのUIに表示したり、音声会話に挿入したりできます。アプリがWeb検索に依存しているなら、これを行うのは良い考えです。問題の理解と対処をユーザーに委ねることにはなりますが、「検索した」か「検索しなかった」かの区別をユーザーから隠すよりはましです。良い面としては、検索グラウンディングがうまく機能すれば、古くなった知識の問題をほぼ解消できます。</li>
+              <li>LLMが関数を呼び出す「ふり」をして、実際には呼び出さないケース。これはプロンプティングで修正可能です。使用しているプロンプトでこれが起こるケースがないことを確認するには、優れた評価（Evals）が必要です。評価でFunction Callのハルシネーションを見つけたら、それが見られなくなるまでプロンプトを改善してください。（マルチターンの会話はLLMのFunction Call能力に<em>非常に</em>大きな負荷をかけるため、評価は実世界のマルチターン会話を反映している必要があることを忘れないでください。）</li>
+              <li>Web検索を期待しているときにLLMがハルシネーションを起こすケース。組み込みの検索グラウンディングは、LLM APIの比較的新しい機能です。LLMが検索を実行するかどうかは、まだ少し予測がつきません。検索しない場合、モデルは重みに埋め込まれた（古い）知識で応答するか、ハルシネーションを起こすことがあります。Function Callのハルシネーションと異なり、これはプロンプティングで修正するのは特に容易ではありません。しかし、検索が実際に実行されたかどうかを知るのは簡単です。そのため、その情報をアプリケーションのUIに表示したり、音声会話に挿入したりできます。アプリがWeb検索に依存しているなら、これを行うのは良い考えです。問題の理解と対処をユーザーに委ねることにはなりますが、「検索した」か「検索しなかった」かの区別をユーザーから隠すよりはましです。良い面としては、検索グラウンディングがうまく機能すれば、古くなった知識の問題をほぼ解消できます。</li>
             </ul>
-            
+
             <p>大手ラボのAPIはいずれも、非常に優れたコンテンツ安全フィルターを備えています。</p>
-            
+
             <p>プロンプトインジェクションの軽減も1年前よりはるかに向上していますが、LLMが新しい能力を獲得するにつれて、潜在的なプロンプトインジェクション攻撃の対象領域は拡大します。たとえば、画像内のテキストによるプロンプトインジェクションが今では問題になっています。</p>
-            
+
             <p>ごく大まかな指針として、今日の音声AIのユースケースでは、通常のユーザー行動が原因で偶発的なプロンプトインジェクションが発生することはまずありません。しかし、ユーザー入力だけでシステム指示を覆すようにLLMの挙動を誘導することは間違いなく可能です。この点を念頭に置いてエージェントをテストすることが重要です。<strong>特に、バックエンドシステムにアクセスするあらゆる関数へのLLM生成の入力をサニタイズし、クロスチェックすることが非常に重要です。</strong></p>
 
         </div>
@@ -2321,13 +2321,13 @@ Tower on a cloudy day.
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="single-inference-actions">6.4. 単発の推論アクションの実行</h2>
-            
+
             <p>AIエンジニアにとって、LLMの活用方法の習得は継続的なプロセスです。そのプロセスの一部は、これらの新しいツールに対する考え方の転換です。LLMを使い始めた当初、我々の多くは<em>言語モデルにしかできないことは何か？</em>というレンズを通して考えていました。しかし、LLMは汎用ツールです。非常に幅広い情報処理タスクを得意とします。</p>
-            
+
             <p>音声エージェントのコンテキストでは、LLM推論を実行するコードパスが常にセットアップされています。LLMの使用をコアの会話ループだけに限定する必要はありません。</p>
-            
+
             <p>例を挙げましょう。</p>
-            
+
             <ul class="arrow-list">
               <li>正規表現を使いたくなったときはいつでも、おそらく代わりにプロンプトを書くことができます。</li>
               <li>LLM出力の後処理はしばしば有用です。たとえば、UIに表示するためのテキストと、対話的な会話のための音声という2つの形式で出力を生成したい場合があります。会話用のLLMにきれいに整形されたmarkdownテキストを生成させ、その後、音声生成用にテキストを短縮・再整形するよう再度LLMにプロンプトを与えることができます。<sup>[51]</sup></li>
@@ -2348,10 +2348,10 @@ Tower on a cloudy day.
           </div>
         </div>
       <div class="chunk-row">
-        <div class="chunk-content">            
-            
+        <div class="chunk-content">
+
             <p>こうした新しく登場しつつあるコードパターンの多くは、言語モデルが自分自身、あるいは別の言語モデルをツールとして使っているように見えます。</p>
-            
+
             <p>これは非常に強力なアイデアであり、2026年には多くの人々がこれに取り組むと我々は予想しています。エージェントフレームワークは、ライブラリレベルのAPIにこのサポートを組み込むことができます。モデルは、関数を呼び出したりコード実行を行ったりするよう訓練するのとほぼ同様の方法で、再帰的に推論を実行するように訓練することができます。</p>
         </div>
       </div>
@@ -2359,25 +2359,25 @@ Tower on a cloudy day.
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="self-improving-systems">6.5. 自己改善システムに向けて</h2>
-            
+
             <p>APIを介してSOTAの「モデル」にアクセスするとき、我々は単一の成果物にアクセスしているわけではありません。APIの背後にあるシステムは、さまざまなルーティング、多段処理、分散システムの技術を用いて、高速に、柔軟に、高い信頼性で、そして並外れた規模で推論を実行しています。これらのシステムは常に調整されています。ウェイトは更新されます。低レベルの推論実装は絶えず効率化されています。システムアーキテクチャも進化しています。</p>
-            
+
             <p>大手ラボは、ユーザーによるAPIの使われ方と、推論やその他の機能の実装方法との間のフィードバックループを絶えず短縮しています。</p>
-            
+
             <p>このますます高速化するフィードバックループこそが、昨今のマクロレベルで起きている驚異的なAIの進歩の大きな要因です。</p>
-            
+
             <p>これに着想を得ると、我々のエージェントレベルのコードにおけるミクロレベルのフィードバックループはどのようなものになり得るでしょうか？会話中にエージェントのパフォーマンスを向上させる特定のスキャフォールディングを構築できるでしょうか？</p>
-            
+
             <ul class="arrow-list">
               <li>ユーザーが話し終える前にエージェントがユーザーに割り込む頻度を監視し、VADタイムアウトなどのパラメータを動的に調整する。</li>
               <li>ユーザーがエージェントに割り込む頻度を監視し、LLMの応答の長さを動的に調整する。</li>
               <li>ユーザーが会話の理解に苦労していることを示すパターンを探す — もしかするとユーザーはネイティブスピーカーではないかもしれません。会話スタイルを調整したり、言語の切り替えを提案したりする。</li>
             </ul>
-            
+
             <p>ほかにもアイデアを思いつくでしょうか？</p>
 
         </div>
-        
+
         <div class="chunk-notes">
 
           <div class="chapter-image">
@@ -2403,34 +2403,34 @@ interpreting phonemes or transcribed text as "MNI"
       <div class="chunk-row">
         <div class="chunk-content">
           <h1 id="scripting">7. スクリプティングと指示追従</h1>
-            
+
             <p>1年前は、人間らしい自然なレイテンシでオープンエンドな会話ができる音声エージェントを構築できるだけでエキサイティングでした。</p>
-            
+
             <p>今や我々は、複雑で現実世界のタスクをこなす音声AIエージェントをデプロイしています。今日のユースケースでは、セッション中に特定の目標に集中するようLLMに指示する必要があります。多くの場合、LLMに特定の順序でサブタスクを実行させる必要もあります。</p>
-            
+
             <p>たとえば、医療における患者受付ワークフローでは、エージェントに次のことをさせたいと考えます。</p>
-            
+
             <ul class="arrow-list">
               <li>何よりも先に患者の本人確認を行う。</li>
               <li>患者が現在服用している薬を必ず尋ねる。</li>
               <li>患者が薬Xを服用していると答えた場合、特定のフォローアップ質問をする。</li>
               <li>など…</li>
             </ul>
-            
+
             <p>我々は、ステップバイステップのワークフローを作り込むことを<em>スクリプティング</em>と呼んでいます。この1年の音声AI開発から得られた教訓のひとつは、<em>プロンプトエンジニアリング</em>だけでスクリプティングの信頼性を実現するのは難しいということです。</p>
-            
+
             <p>単一のプロンプトに詰め込める詳細には限りがあります。これに関連して、マルチターン会話でコンテキストが大きくなるにつれ、LLMが追跡すべき情報はどんどん増え、指示追従の精度は低下していきます。</p>
-            
+
             <p>多くの音声AI開発者は、複雑なワークフローを構築するためにステートマシンのアプローチへと移行しつつあります。LLMを導くための長く詳細なシステム指示を書く代わりに、一連の状態（ステート）を定義できます。各状態は次の要素からなります。</p>
-            
+
             <ul class="arrow-list">
               <li>システム指示とツールリスト。</li>
               <li>会話のコンテキスト。</li>
               <li>現在の状態から別の状態への1つ以上の出口。</li>
             </ul>
-            
+
             <p>各状態遷移は、次のことを行う機会となります。</p>
-            
+
             <ul class="arrow-list">
               <li>システム指示とツールリストを更新する。</li>
               <li>コンテキストを要約または修正する。<sup>[53]</sup></li>
@@ -2446,28 +2446,28 @@ interpreting phonemes or transcribed text as "MNI"
         </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>ステートマシンのアプローチがうまく機能するのは、より短く、より焦点の絞られたシステム指示、ツールリスト、コンテキストが、LLMの指示追従を大幅に改善するからです。</p>
-            
+
             <p>課題は、一方ではオープンエンドで自然な会話を行うLLMの能力を活かしつつ、他方では遂行すべき仕事の重要な部分をLLMが確実に実行するようにするという、両者の適切なバランスを見つけることです。</p>
-            
+
             <p><a href="https://github.com/pipecat-ai/pipecat-flows" target="_blank">Pipecat Flows</a>は、Pipecatの上に構築されたライブラリで、開発者がワークフローのステートマシンを作成するのを支援します。</p>
-            
+
             <p>状態遷移図はJSONとして表現され、Pipecatのプロセスに読み込むことができます。これらのJSON状態遷移図を作成するためのグラフィカルエディタも用意されています。</p>
             <div class="chapter-image">
               <img src="../images/6a.png" alt="Pipecat Flows graphical editor" class="chunk-image-inline" width="80%">
               <p class="image-caption">Pipecat Flowsのグラフィカルエディタ</p>
             </div>
             <p>Pipecat Flowsとステートマシンは、いままさに多くの開発者に採用されつつあります。しかし、複雑なワークフローのための抽象化を構築する方法には、ほかにも興味深い考え方があります。</p>
-            
+
             <p>AIの研究開発で活発な分野のひとつがマルチエージェントシステムです。ワークフローを、遷移していく一連の状態としてではなく、マルチエージェントシステムとして考えることもできます。</p>
-            
+
             <p>Pipecatの中核的なアーキテクチャコンポーネントのひとつがパラレルパイプラインです。パラレルパイプラインを使うと、処理グラフを流れるデータを分割し、2回（またはそれ以上）操作することができます。データをブロックしたりフィルタリングしたりできます。多数のパラレルパイプラインを定義できます。ワークフローを、ゲートで制御され協調する一連のパラレルパイプラインとして考えることもできるのです。</p>
-            
+
             <p>音声AIツーリングの急速な進化はエキサイティングであり、この新しい種類のプログラムを構築する最良の方法を見つけ出すうえで、我々がまだいかに初期段階にいるかを浮き彫りにしています。</p>
 
         </div>
-        
+
         <div class="chunk-notes">
 
           <div class="chunk-footnotes">
@@ -2479,9 +2479,9 @@ interpreting phonemes or transcribed text as "MNI"
       <div class="chunk-row">
         <div class="chunk-content">
           <h1 id="evals">8. 音声AIの評価（Evals）</h1>
-            
+
             <p>非常に重要なツーリングの一種が、evaluation（評価）の略であるevalです。</p>
-            
+
             <p><em>Eval</em>とは、システムの能力を評価し、その品質を判定するツールやプロセスを指す機械学習用語です。</p>
         </div>
       </div>
@@ -2489,11 +2489,11 @@ interpreting phonemes or transcribed text as "MNI"
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="evals-different">8.1. 音声AIの評価はソフトウェアのユニットテストとは異なる</h2>
-            
+
             <p>従来のソフトウェアエンジニアリングの経験がある方なら、テストを（ほぼ）決定論的な作業として考えることに慣れているでしょう。</p>
-            
+
             <p>音声AIには、従来のソフトウェアエンジニアリングとは異なるテストが必要です。音声AIの出力は非決定論的です。音声AIのテストの入力は、複雑で分岐のあるマルチターンの会話です。</p>
-            
+
             <p>特定の入力が特定の出力を生むこと<code>(f(x) = y)</code>をテストするのではなく、確率的な評価を実行する必要があります。つまり、ある種のイベントがどのくらいの頻度で発生するかを見るために、多数のテスト実行を行うのです。<sup>[54]</sup>テストによっては、あるクラスのケースで8/10の正答率が許容できる場合もあれば、9.99/10の精度が必要な場合もあります。</p>
           </div>
           <div class="chunk-notes">
@@ -2506,9 +2506,9 @@ interpreting phonemes or transcribed text as "MNI"
         </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>入力は1つだけではなく、多数になります。すなわち、ユーザーの応答すべてが入力です。このため、ユーザーの挙動をシミュレートすることなしに音声AIアプリケーションをテストするのは非常に困難です。</p>
-            
+
             <p>最後に、音声AIのテストの結果は二値ではなく、従来のユニットテストのように明確な✅や❌が得られることはめったにありません。代わりに、結果をレビューしてトレードオフを判断する必要があります。</p>
         </div>
       </div>
@@ -2516,7 +2516,7 @@ interpreting phonemes or transcribed text as "MNI"
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="failure-modes">8.2. 失敗モード</h2>
-            
+
             <p>音声AIアプリのテスト、評価、監視は困難です。音声エージェントはマルチモデルかつマルチモーダルです。レイテンシが極めて重要です。</p>
 
             <p>今日、頻繁に課題となる領域には次のようなものがあります。</p>
@@ -2533,9 +2533,9 @@ interpreting phonemes or transcribed text as "MNI"
       <div class="chunk-row">
         <div class="chunk-content">
             <h2 id="eval-strategy">8.3. 評価戦略の策定</h2>
-            
+
             <p>初歩的な評価プロセスは、プロンプトとテストケースを並べたスプレッドシート程度のシンプルなものでも構いません。</p>
-            
+
             <p>典型的なアプローチのひとつは、新しいモデルをテストするときやシステムの主要部分を変更するときに毎回各プロンプトを実行し、応答が期待されるパラメータの定義内に収まっているかをLLMに判定させるというものです。</p>
 
             <p>Pipecatには、独自の評価の構築を支援するコア機能が含まれています。想定されているユースケースは「ループを閉じる」こと、つまりコーディングエージェントが開発中にエージェントを反復的にテストできるようにすることです。</p>
@@ -2543,7 +2543,7 @@ interpreting phonemes or transcribed text as "MNI"
             <p>基本的な評価があるだけでも、評価がまったくないよりはるかに良いです。しかし、スケールして運用し始めると、評価への投資 – 本当に良い評価を持つこと – が極めて重要になります。</p>
 
         </div>
-        
+
         <div class="chunk-notes">
 
           <div class="chunk-footnotes">
@@ -2559,9 +2559,9 @@ interpreting phonemes or transcribed text as "MNI"
             <img src="../images/7a.jpg" alt="A screenshot from the Coval evals platform UI" class="chunk-image-inline" width="80%">
             <p class="image-caption">Coval評価プラットフォームUIのスクリーンショット</p>
           </div>
-            
+
             <p>これらのプラットフォームは次のことに役立ちます。</p>
-            
+
             <ul class="arrow-list">
               <li>プロンプトの反復改善。</li>
               <li>音声、ワークフロー、Function Calling、会話の意味的評価のための既製のメトリクス。</li>
@@ -2575,7 +2575,7 @@ interpreting phonemes or transcribed text as "MNI"
             </div>
 
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
 
@@ -2586,9 +2586,9 @@ interpreting phonemes or transcribed text as "MNI"
       <div class="chunk-row">
         <div class="chunk-content">
           <h1 id="telephony">9. 電話インフラとの統合</h1>
-            
+
             <p><strong>今日、最も急速に成長している音声AIユースケースの多くは電話に関わるものです。</strong>AI音声エージェントは今日、大規模に電話に応答し、電話をかけています。</p>
-            
+
             <p>この一部は従来のコールセンターで起きています。コールセンターの多くは、音声AIを「デフレクション率（deflection rate）」 – 人間のエージェントではなく自動化で処理できる電話の割合 – を改善できる技術と見なしています。これにより、音声AI導入のROIは明確になります。LLMの1分あたりのコストが人間のエージェントの1分あたりのコストより安ければ、購入の意思決定は容易です。<sup>[55]</sup></p>
           </div>
           <div class="chunk-notes">
@@ -2601,33 +2601,33 @@ interpreting phonemes or transcribed text as "MNI"
         </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>しかし、単純なROI計算を超えて、導入を加速させる興味深い事象がいくつか起きています。</p>
-            
+
             <p>音声AIエージェントは、人間のスタッフにはできない形でスケールします。音声AIを導入すれば、混雑期の待ち時間は短くなります。（その直接の結果として、顧客満足度スコアは上がります。）</p>
-            
+
             <p>また、我々がより良いツールを与えているおかげで、LLMが人間のエージェントより良い仕事をすることもあります。多くのカスタマーサポートの現場では、人間のエージェントは複数のレガシーなバックエンドシステムに対処しなければなりません。情報をタイムリーに見つけることが課題になり得ます。同じ状況に音声AIをデプロイする際には、これらのレガシーシステムへのAPIレベルのアクセスを構築する必要があります。新しいLLM+APIレイヤーが、音声AIへの技術移行を可能にしているのです。</p>
-            
+
             <p>生成AIが今後数年でコールセンターの状況を完全に塗り替えることは明らかです。</p>
-            
+
             <p>コールセンターの外でも、音声AIは、中小企業が電話に対応する方法や、情報の発見や調整のために電話を活用する方法を変えつつあります。我々は、あなたが聞いたことのあるあらゆる業種向けに特化したAI電話ソリューションを構築しているスタートアップと毎日話をしています。</p>
-            
+
             <p>この分野の人々はよく、もうすぐ人間は電話をかけることも受けることもまったくなくなり、電話はすべてAI対AIになる、と冗談を言います。我々が目にしているトレンドラインから判断すると、これにはいくらかの真実が含まれています！</p>
-            
+
             <p>音声AIのための電話インフラに関心があるなら、知っておくべき略語とよくある概念がいくつかあります。</p>
-            
+
             <ul class="arrow-list">
               <li>PSTNは<em>公衆交換電話網（public, switched, telephone network）</em>のことです。電話番号を持つ実際の電話とやり取りする必要がある場合は、PSTNプラットフォームを利用することになります。Twilioは、ほぼすべての開発者が耳にしたことのあるPSTNプラットフォームです。</li>
-              
+
               <li>SIPはIP電話で使われる特定のプロトコルですが、一般的な意味では、システム間の電話接続を指す言葉としても使われます。たとえばコールセンターの技術スタックと連携する場合は、SIPを使う必要があります。SIPプロバイダーを利用することも、自前でSIPサーバーをホストすることもできます。</li>
-              
+
               <li>DTMFトーンは、電話メニューを操作する際に使われるキー押下音です。音声エージェントは、実世界の電話システムとやり取りするために、DTMFトーンを送信できる必要があります。LLMは電話の自動音声メニューの扱いがかなり得意です。少しのプロンプトエンジニアリングと、DTMFトーンを送信する関数の定義を行うだけで済みます。</li>
-              
+
               <li>音声エージェントは、通話転送を実行しなければならないことがよくあります。単純な転送では、音声AIは通話転送をトリガーする関数を呼び出してセッションを終了します。<sup>[56]</sup> <em>ウォームトランスファー</em>は、あるエージェントから別のエージェントへの引き継ぎであり、発信者を2人目のエージェントに転送する前に、エージェント同士が会話を交わします。音声AIエージェントも、人間と同じようにウォームトランスファーを行えます。音声エージェントはまず人間の発信者と会話し、次に発信者を保留にして、通話に加わる新しい人間のエージェントと会話し、その後、人間の発信者をその人間のエージェントにつなぎます。</li>
             </ul>
 
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
@@ -2640,9 +2640,9 @@ interpreting phonemes or transcribed text as "MNI"
       <div class="chunk-row">
         <div class="chunk-content">
           <h1 id="rag-memory">10. RAGとメモリ</h1>
-            
+
             <p>音声AIエージェントは、外部システムの情報にアクセスすることがよくあります。たとえば、次のようなことが必要になる場合があります。</p>
-            
+
             <ul class="arrow-list">
               <li>ユーザーに関する情報をLLMのシステム指示に組み込む。</li>
               <li>過去の会話履歴を取得する。</li>
@@ -2650,11 +2650,11 @@ interpreting phonemes or transcribed text as "MNI"
               <li>Web検索を実行する。</li>
               <li>リアルタイムの在庫確認や注文状況の確認を行う。</li>
             </ul>
-            
+
             <p>これらはすべて、RAG（retrieval augmented generation、検索拡張生成）のカテゴリに含まれます。RAGは、情報検索とLLMプロンプティングを組み合わせることを指す、AIエンジニアリングの一般的な用語です。</p>
-            
+
             <p>音声エージェントにとっての「考えられる限り最もシンプルなRAG」は、会話が始まる前にユーザーに関する情報を検索し、その情報をLLMのシステム指示にマージするというものです。</p>
-            
+
             <pre><code>user_info = fetch_user_info(user_id)
 
 system_prompt_base = "You are a voice AI assistant..."
@@ -2669,7 +2669,7 @@ The patient has the following medical history: {user_info["summarized_history"]}
 )
 </code></pre>
             <p class="image-caption">シンプルなRAG – セッション開始時に検索を実行する</p>
-            
+
             <p>RAGは奥の深いトピックであり、変化の速い分野です。<sup>[57]</sup> その手法は、基本的な検索と文字列補間だけを使う上記の比較的シンプルなアプローチから、埋め込みとベクトルデータベースを使って非常に大量の半構造化データを整理するシステムまで、多岐にわたります。</p>
 
           </div>
@@ -2683,9 +2683,9 @@ The patient has the following medical history: {user_info["summarized_history"]}
         </div>
       <div class="chunk-row">
         <div class="chunk-content">
-            
+
             <p>多くの場合、80/20のアプローチでかなり遠くまで行けます。既存のナレッジベースがあるなら、すでにあるAPIを使いましょう。シンプルな評価（Evals）を書いて、検索結果を会話コンテキストに注入するいくつかのフォーマットをテストできるようにします。本番環境にデプロイし、実際のユーザーに対してどの程度うまく機能するかをモニタリングしましょう。</p>
-            
+
             <pre><code>async def query_order_system(function_name, tool_call_id, args, llm, context, result_callback):
   "First push a speech frame. This is handy when the LLM response might take a while."
   await llm.push_frame(TTSSpeakFrame("Please hold on while I look that order up for you."))
@@ -2702,19 +2702,19 @@ The patient has the following medical history: {user_info["summarized_history"]}
 llm.register_function("query_order_system", query_order_system)
 </code></pre>
             <p class="image-caption">セッション中のRAG。情報検索が必要になったときにLLMが呼び出す関数を定義します。この例では、システムの応答に数秒かかることをユーザーに知らせるために、あらかじめ設定した音声フレーズも出力しています。</p>
-            
-            <p>いつものことながら、レイテンシは音声AIにとって、非音声のAIシステムよりも大きな課題です。LLMが関数呼び出しリクエストを行うと、追加の推論呼び出しがレイテンシに上乗せされます。外部システムでの情報検索も遅くなりがちです。RAG検索を実行する前にシンプルな音声出力をトリガーし、処理が進行中であることをユーザーに知らせると効果的な場合が多くあります。</p>
-            
+
+            <p>いつものことながら、レイテンシは音声AIにとって、非音声のAIシステムよりも大きな課題です。LLMがFunction Callリクエストを行うと、追加の推論呼び出しがレイテンシに上乗せされます。外部システムでの情報検索も遅くなりがちです。RAG検索を実行する前にシンプルな音声出力をトリガーし、処理が進行中であることをユーザーに知らせると効果的な場合が多くあります。</p>
+
             <p>より広く見ると、セッションをまたぐメモリは有用な機能です。あなたが話したことをすべて覚えておく必要がある、音声AIパーソナルアシスタントを想像してみてください。一般的なアプローチは次の2つです。</p>
-            
+
             <ol class="list-decimal">
               <li>各会話を永続ストレージに保存する。会話をコンテキストに読み込むいくつかのアプローチをテストします。たとえば、パーソナルアシスタントのユースケースでうまく機能する戦略として、エージェントの起動時に必ず直近の会話を全文読み込み、直近N件の会話については要約を読み込み、さらに必要に応じてLLMが古い会話を動的に読み込むために使える検索関数を定義する、というものがあります。</li>
-              
-              <li>会話履歴の各メッセージを、メッセージグラフに関するメタデータとともにデータベースに個別に保存する。すべてのメッセージにインデックスを付けます（おそらくセマンティック埋め込みを使って）。これにより、分岐する会話履歴を動的に構築できます。アプリが画像入力（LLMビジョン）を多用する場合には、この方法が適しているかもしれません。画像はコンテキストの容量を大きく消費するのです！<sup>[58]</sup> このアプローチでは、分岐型のUIを構築することも可能になります。これは、AIアプリのデザイナーたちがまさに探求し始めたばかりの方向性です。</li>
+
+              <li>会話履歴の各メッセージを、メッセージグラフに関するメタデータとともにデータベースに個別に保存する。すべてのメッセージにインデックスを付けます（おそらくセマンティック埋め込みを使って）。これにより、分岐する会話履歴を動的に構築できます。アプリが画像入力（LLM Vision）を多用する場合には、この方法が適しているかもしれません。画像はコンテキストの容量を大きく消費するのです！<sup>[58]</sup> このアプローチでは、分岐型のUIを構築することも可能になります。これは、AIアプリのデザイナーたちがまさに探求し始めたばかりの方向性です。</li>
             </ol>
 
         </div>
-        
+
         <div class="chunk-notes">
           <div class="chunk-footnotes">
 
@@ -2743,7 +2743,7 @@ llm.register_function("query_order_system", query_order_system)
             </ul>
 
             <p>これらすべての理由から、AWS LambdaやGoogle Cloud Runのようなサーバーレスフレームワークを音声AIに使うことは、一般的に不可能です。</p>
-  
+
             <p>音声AIエージェントをデプロイするための今日のベストプラクティスは次のとおりです。</p>
 
             <ul class="arrow-list">
@@ -2756,7 +2756,7 @@ llm.register_function("query_order_system", query_order_system)
 
             <p>仮想マシンのスペックとコンテナのパッキングは、初めて本番環境にデプロイする際につまずきやすいポイントです。エージェントに必要なスペックは、使用するライブラリと、エージェントプロセス内でどれだけCPU負荷の高い処理を行うかによって変わります。経験則としては、仮想マシンのCPUあたりエージェント1つで開始し、RAMは開発マシン上でエージェントプロセスが消費する最大量の2倍にするのがよいでしょう。<sup>[60]</sup></p>
 
-            <p>Dailyの<a href="https://docs.pipecat.ai/deployment/platforms/pipecat-cloud" target="_blank">Pipecat Cloud</a>エージェントホスティングプラットフォームは、Kubernetesのあらゆる面倒な部分を代わりに管理してくれます。Pipecatエージェントを「docker push」でPipecat Cloudにプッシュし、複数のグローバルリージョンで、ネイティブの電話サポートとWebRTCネットワークサポートとともに、大規模に実行できます。</p>
+            <p>Dailyの<a href="https://docs.pipecat.ai/deployment/platforms/pipecat-cloud" target="_blank">Pipecat Cloud</a>エージェントホスティングプラットフォームは、Kubernetesのあらゆる面倒な部分を代わりに管理してくれます。Pipecatエージェントを docker push でPipecat Cloudにプッシュし、複数のグローバルリージョンで、ネイティブの電話サポートとWebRTCネットワークサポートとともに、大規模に実行できます。</p>
 
         </div>
         <div class="chunk-notes">
@@ -2774,7 +2774,7 @@ llm.register_function("query_order_system", query_order_system)
         <div class="chunk-content">
           <h2 id="hosting-cost">11.2. 分あたりコストの計算</h2>
 
-          <p>音声AIのコストは、使用するモデル、API、ホスティングインフラによって大きく異なります。コストはユースケースにも依存します。たとえば、上記の<a href="#cost-comparison">コスト比較</a>で述べたように、分あたりコストは一般に長いセッションほど高くなります。また、電話はWebRTCトランスポートよりも高価です。</p> 
+          <p>音声AIのコストは、使用するモデル、API、ホスティングインフラによって大きく異なります。コストはユースケースにも依存します。たとえば、上記の<a href="#cost-comparison">コスト比較</a>で述べたように、分あたりコストは一般に長いセッションほど高くなります。また、電話はWebRTCトランスポートよりも高価です。</p>
 
           <p>コストには幅があり、OpenAI Realtime APIのようなspeech-to-speech（音声→音声）APIを使う場合は1分あたり$0.20以上、フル機能のホスト型エージェントプラットフォームでは1分あたり$0.10、そして大規模に運用される高度にコスト最適化されたデプロイでは1分あたり$0.02まで下がります。</p>
 
@@ -2860,8 +2860,9 @@ llm.register_function("query_order_system", query_order_system)
             <h2 id="design">デザイン</h2>
             <p>Sascha Mombartz</p>
 
+            <h2 id="design">日本語訳</h2>
+            <p>今井智章 <a href="https://x.com/tomoaki_imai" target="_blank">Tomoaki Imai</a></p>
         </div>
-        
         <div class="chunk-notes">
           <div class="chunk-footnotes">
             <div class="footnote">
@@ -2882,6 +2883,6 @@ llm.register_function("query_order_system", query_order_system)
 
   <script src="../script/footnotes.js"></script>
   <script src="../script/header-anchors.js"></script>
-  
+
 
  </body></html>
